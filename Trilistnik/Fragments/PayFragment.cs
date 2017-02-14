@@ -27,7 +27,7 @@ namespace Trilistnik
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			ViewGroup root;
-			if (MainActivity.hasConnection)
+			if (MainActivity.isOnline(MainActivity.context))
 			{
 				root = (ViewGroup)inflater.Inflate(Resource.Layout.payfragment, null);
 				webView = root.FindViewById<WebView>(Resource.Id.webViewPay);

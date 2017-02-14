@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Support.V7.Widget;
+using Android.Widget;
 
 namespace Trilistnik
 {
@@ -8,6 +9,7 @@ namespace Trilistnik
 		public delegate void LoadMoreEventHandler(object sender, EventArgs e);
 		public event LoadMoreEventHandler LoadMoreEvent;
 		private bool isLoading = false;
+		private bool isNotifyShowing = false;
 		private int previousTotal;
 		private int visibleThreshold = 2;
 
@@ -29,9 +31,19 @@ namespace Trilistnik
 
 			if (!isLoading && (visibleItemCount + pastVisiblesItems + visibleThreshold) >= totalItemCount)
 			{
-				isLoading = true;
-				previousTotal = totalItemCount;
-				LoadMoreEvent(this, null);
+				if (MainActivity.isOnline(MainActivity.context))
+				{
+					isLoading = true;
+					previousTotal = totalItemCount;
+					LoadMoreEvent(this, null);
+				}
+				else {
+					if (!isNotifyShowing)
+					{
+						Toast.MakeText(MainActivity.context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
+						isNotifyShowing = true;
+					}
+				}
 			}
 
 			if (isLoading)

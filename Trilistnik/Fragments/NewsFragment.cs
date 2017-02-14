@@ -39,23 +39,20 @@ namespace Trilistnik
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			ViewGroup root;
-			if (MainActivity.hasConnection)
+
+			root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
+			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewNews);
+			if (recyclerView != null)
 			{
-				root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
-				recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewNews);
-				if (recyclerView != null)
-				{
-					recyclerView.HasFixedSize = true;
-					var layoutManager = new LinearLayoutManager(Activity);
-					var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
-					onScrollListener.LoadMoreEvent += LoadMore;
-					recyclerView.AddOnScrollListener(onScrollListener);
-					recyclerView.SetLayoutManager(layoutManager);
-				}
+				recyclerView.HasFixedSize = true;
+				var layoutManager = new LinearLayoutManager(Activity);
+				var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
+				onScrollListener.LoadMoreEvent += LoadMore;
+				recyclerView.AddOnScrollListener(onScrollListener);
+				recyclerView.SetLayoutManager(layoutManager);
+				GetCachedNews();
 			}
-			else {
-				root = (ViewGroup)inflater.Inflate(Resource.Layout.fragmentNoInternet, null);
-			}
+
 			return root;
 		}
 
@@ -68,7 +65,7 @@ namespace Trilistnik
 				newsOffset = 20;
 				w.Encoding = Encoding.UTF8;
 				string resp = await w.DownloadStringTaskAsync(apiurl);
-				newsFeed = GetNews(resp).ToList();
+				newsFeed = GetNews(resp, true).ToList();
 				newsAdapter = new NewsAdapter(newsFeed);
 				recyclerView.SetAdapter(newsAdapter);
 				refresher.Refreshing = false;
@@ -87,26 +84,49 @@ namespace Trilistnik
 			}
 		}
 
+		public void GetCachedNews()
+		{
+			NewsCache newsCache = new NewsCache();
+			JObject json = JObject.Parse(newsCache.ReadNewsData());
+			newsFeed = ParsePostsInJson(json).ToList();
+			Log.Debug("dasds", newsFeed[0].Text);
+			newsAdapter = new NewsAdapter(newsFeed);
+			recyclerView.SetAdapter(newsAdapter);
+		}
+
 		/// <summary>
 		/// Get news feed
 		/// </summary>
-		/// <returns>News feed</returns>
-		/// <param name="resp">Resp string</param>
-		private IEnumerable<Post> GetNews(string resp)
+		/// <returns>The news</returns>
+		/// <param name="resp">Resp url</param>
+		/// <param name="isStartUpdate">Cache news<c>cache after app loading</c>do not cache if it is lazy laod</param>
+		private IEnumerable<Post> GetNews(string resp, bool isStartUpdate = false)
 		{
 			JObject json = JObject.Parse(resp);
 
+			if (isStartUpdate && MainActivity.isOnline(MainActivity.context))
+			{
+				NewsCache newsCache = new NewsCache();
+				newsCache.CreateNewsData(json.ToString());
+			}
+
+			JArray posts = (JArray)json["response"]["items"];
+
+			return ParsePostsInJson(json);
+		}
+
+		private IEnumerable<Post> ParsePostsInJson(JObject json)
+		{
 			JArray posts = (JArray)json["response"]["items"];
 
 			var newsFeedLocal = from post in posts
-							where post["text"].ToString() != String.Empty
-							select new Post
-							{
-
-								Text = post["text"].ToString(),
-								Date = post["date"].ToString(),
-								Img = post["attachments"]?[0]?["photo"]?["photo_604"].ToString()
-							};
+								where post["text"].ToString() != String.Empty
+								select new Post
+								{
+									Text = post["text"].ToString(),
+									Date = post["date"].ToString(),
+									Img = post["attachments"]?[0]?["photo"]?["photo_604"].ToString()
+								};
 			return newsFeedLocal;
 		}
 

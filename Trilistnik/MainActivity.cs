@@ -7,20 +7,16 @@ using Toolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Views;
 using Fragment = Android.Support.V4.App.Fragment;
 using Android.Net;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System;
-using Newtonsoft.Json.Linq;
-using System.Linq;
+using Android.Content;
+using Android.Widget;
 
 namespace Trilistnik
 {
 	[Activity(Label = "Трилистник", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@mipmap/icon", HardwareAccelerated = true)]
 	public class MainActivity : AppCompatActivity
 	{
-		public static bool hasConnection;
+		public static Context context;
 		private DrawerLayout drawerLayout;
 		private SettingsFragment settingsFragment;
 		private PayFragment payFragment;
@@ -42,11 +38,11 @@ namespace Trilistnik
 			toolbar.Title = "Новости";
 			SetSupportActionBar(toolbar);
 
+			context = Application.Context;
 			settingsFragment = new SettingsFragment();
 			payFragment = new PayFragment();
 			newsFragment = new NewsFragment();
 			fixFragment = new FixFragment();
-			hasConnection = isOnline();
 
 			//Enable support action bar to display hamburger
 			SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
@@ -71,14 +67,11 @@ namespace Trilistnik
 			trans.Commit();
 
 			refresher.Refresh += HandleRefresh;
-			if (hasConnection)
+
+			if (isOnline(context))
 			{
-				refresher.Refresh += HandleRefresh;
 				refresher.Refreshing = true;
 				await newsFragment.GetStartNewsFeed(refresher);
-			}
-			else {
-				refresher.Enabled = false;
 			}
 		}
 
@@ -137,17 +130,25 @@ namespace Trilistnik
 			currentFragment = fragment;
 		}
 
-		private bool isOnline()
+		public static bool isOnline(Context context)
 		{
-			ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+			ConnectivityManager connectivityManager = (ConnectivityManager)context.GetSystemService(ConnectivityService);
 			NetworkInfo networkInfo = connectivityManager.ActiveNetworkInfo;
 			return networkInfo != null && networkInfo.IsConnected;
 		}
 
 		async void HandleRefresh(object sender, EventArgs e)
 		{
-			await newsFragment.GetStartNewsFeed(refresher);
-			refresher.Refreshing = false;
+			if (isOnline(context))
+			{
+				await newsFragment.GetStartNewsFeed(refresher);
+				refresher.Refreshing = false;
+			}
+			else
+			{
+				Toast.MakeText(context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
+				refresher.Refreshing = false;
+			}
 		}
 	}
 }

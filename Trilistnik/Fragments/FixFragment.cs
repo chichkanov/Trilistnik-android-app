@@ -30,7 +30,7 @@ namespace Trilistnik
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.fixfragment, null);
-			if (MainActivity.hasConnection)
+			if (MainActivity.isOnline(MainActivity.context))
 			{
 				webView = root.FindViewById<WebView>(Resource.Id.webViewFix);
 				WebSettings webSettings = webView.Settings;
