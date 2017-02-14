@@ -25,7 +25,6 @@ namespace Trilistnik
 		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
-		private SwipeRefreshLayout refresher;
 
 		protected async override void OnCreate(Bundle savedInstanceState)
 		{
@@ -34,7 +33,6 @@ namespace Trilistnik
 			SetContentView(Resource.Layout.Main);
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
-			refresher = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
 			toolbar.Title = "Новости";
 			SetSupportActionBar(toolbar);
 
@@ -65,14 +63,6 @@ namespace Trilistnik
 			trans.Add(Resource.Id.content, newsFragment);
 			currentFragment = newsFragment;
 			trans.Commit();
-
-			refresher.Refresh += HandleRefresh;
-
-			if (isOnline(context))
-			{
-				refresher.Refreshing = true;
-				await newsFragment.GetStartNewsFeed(refresher);
-			}
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
@@ -135,20 +125,6 @@ namespace Trilistnik
 			ConnectivityManager connectivityManager = (ConnectivityManager)context.GetSystemService(ConnectivityService);
 			NetworkInfo networkInfo = connectivityManager.ActiveNetworkInfo;
 			return networkInfo != null && networkInfo.IsConnected;
-		}
-
-		async void HandleRefresh(object sender, EventArgs e)
-		{
-			if (isOnline(context))
-			{
-				await newsFragment.GetStartNewsFeed(refresher);
-				refresher.Refreshing = false;
-			}
-			else
-			{
-				Toast.MakeText(context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
-				refresher.Refreshing = false;
-			}
 		}
 	}
 }

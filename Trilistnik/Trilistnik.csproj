@@ -116,6 +116,7 @@
     <Compile Include="SQLite.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="NewsCache.cs" />
+    <Compile Include="NewsPost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -162,6 +163,7 @@
     <AndroidResource Include="Resources\drawable\gradient_top.xml" />
     <AndroidResource Include="Resources\drawable\gradient_bottom.xml" />
     <AndroidResource Include="Resources\drawable\background_shadow.xml" />
+    <AndroidResource Include="Resources\layout\NewsPost.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -29,6 +29,11 @@ namespace Trilistnik
 		private RecyclerView recyclerView;
 		private NewsAdapter newsAdapter;
 		private List<Post> newsFeed = new List<Post>();
+		private NewsCache newsCache;
+		private LinearLayout noInternetLayout;
+		private SwipeRefreshLayout refresher;
+		private Button noInternetButton;
+		ViewGroup root;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
@@ -36,30 +41,52 @@ namespace Trilistnik
 
 		}
 
-		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+		public async override void OnActivityCreated(Bundle savedInstanceState)
 		{
-			ViewGroup root;
+			base.OnActivityCreated(savedInstanceState);
 
-			root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
-			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewNews);
-			if (recyclerView != null)
+			if (MainActivity.isOnline(MainActivity.context))
 			{
-				recyclerView.HasFixedSize = true;
-				var layoutManager = new LinearLayoutManager(Activity);
-				var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
-				onScrollListener.LoadMoreEvent += LoadMore;
-				recyclerView.AddOnScrollListener(onScrollListener);
-				recyclerView.SetLayoutManager(layoutManager);
-				GetCachedNews();
+				refresher.Refreshing = true;
+				await GetStartNewsFeed();
 			}
 
+		}
+
+		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+		{
+			root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
+			noInternetLayout = root.FindViewById<LinearLayout>(Resource.Id.noInternetContent);
+			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewNews);
+			refresher = root.FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
+			refresher.Refresh += HandleRefresh;
+
+			newsCache = new NewsCache();
+			recyclerView.HasFixedSize = true;
+			var layoutManager = new LinearLayoutManager(Activity);
+			var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
+			onScrollListener.LoadMoreEvent += LoadMore;
+			recyclerView.AddOnScrollListener(onScrollListener);
+			recyclerView.SetLayoutManager(layoutManager);
+			if(newsCache.IsExist())GetCachedNews();
+			if (!newsCache.IsExist() && !MainActivity.isOnline(MainActivity.context))
+			{
+				ShowNoInternetNofitication(root);
+				noInternetButton = root.FindViewById<Button>(Resource.Id.buttonRepeatConnection);
+				noInternetButton.Click += async (sender, e) =>
+				{
+					if (MainActivity.isOnline(MainActivity.context))
+					{
+						await GetStartNewsFeed();
+					}
+				};
+			}
 			return root;
 		}
 
 
-		public async Task GetStartNewsFeed(SwipeRefreshLayout refresher)
+		public async Task GetStartNewsFeed()
 		{
-
 			using (var w = new WebClient())
 			{
 				newsOffset = 20;
@@ -67,6 +94,11 @@ namespace Trilistnik
 				string resp = await w.DownloadStringTaskAsync(apiurl);
 				newsFeed = GetNews(resp, true).ToList();
 				newsAdapter = new NewsAdapter(newsFeed);
+				newsAdapter.ItemClick += NewsItemClick;
+				if (MainActivity.isOnline(MainActivity.context) && noInternetLayout.Visibility == ViewStates.Visible)
+				{
+					noInternetLayout.Visibility = ViewStates.Gone;
+				}
 				recyclerView.SetAdapter(newsAdapter);
 				refresher.Refreshing = false;
 			}
@@ -86,7 +118,6 @@ namespace Trilistnik
 
 		public void GetCachedNews()
 		{
-			NewsCache newsCache = new NewsCache();
 			JObject json = JObject.Parse(newsCache.ReadNewsData());
 			newsFeed = ParsePostsInJson(json).ToList();
 			Log.Debug("dasds", newsFeed[0].Text);
@@ -106,7 +137,7 @@ namespace Trilistnik
 
 			if (isStartUpdate && MainActivity.isOnline(MainActivity.context))
 			{
-				NewsCache newsCache = new NewsCache();
+				newsCache = new NewsCache();
 				newsCache.CreateNewsData(json.ToString());
 			}
 
@@ -131,6 +162,19 @@ namespace Trilistnik
 		}
 
 		/// <summary>
+		/// Show ui according to internet connection
+		/// </summary>
+		/// <param name="root">Root viewGroup</param>
+		private void ShowNoInternetNofitication(ViewGroup root)
+		{
+			noInternetLayout.Visibility = ViewStates.Visible;
+			for (int i = 0; i < noInternetLayout.ChildCount; i++)
+			{
+				noInternetLayout.GetChildAt(i).Visibility = ViewStates.Visible;
+			}
+		}
+
+		/// <summary>
 		/// Load more event
 		/// </summary>
 		/// <param name="sender">Sender</param>
@@ -138,6 +182,31 @@ namespace Trilistnik
 		async void LoadMore(object sender, EventArgs e)
 		{
 			await GetAdditionalNewsFeed(newsOffset);
+		}
+
+		async void HandleRefresh(object sender, EventArgs e)
+		{
+			if (MainActivity.isOnline(MainActivity.context))
+			{
+				await GetStartNewsFeed();
+			}
+			else
+			{
+				Toast.MakeText(MainActivity.context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
+				refresher.Refreshing = false;
+			}
+		}
+
+		private void NewsItemClick(object sender, int position)
+		{
+			Log.Debug("dasdasd", position.ToString());
+			var newsPostIntent = new Intent(MainActivity.context, typeof(NewsPost));
+			newsPostIntent.PutExtra("index", position);
+			ActivityOptions activityOptions = ActivityOptions.MakeSceneTransitionAnimation(
+				Activity,
+				new Pair(root.FindViewById(Resource.Id.newsText), NewsPost.VIEW_NAME_NEWS_TEXT)
+			);
+			StartActivity(newsPostIntent, activityOptions.ToBundle());
 		}
 	}
 }

@@ -5,8 +5,7 @@
 	<item name="colorPrimary">#673AB7</item>
     <item name="colorPrimaryDark">#512DA8</item>
     <item name="colorAccent">#00BCD4</item>
-	<item name="android:windowBackground">@drawable/splash_centered</item>
-	<item name="android:colorBackground">@android:color/white</item>
+
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
 	</style>
