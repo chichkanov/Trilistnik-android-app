@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <dimen name="launch_screen_logo_bottom">16.0dip</dimen>
+    <dimen name="launch_screen_text_bottom">48.0dip</dimen>
+	 <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
+	<dimen name="news_text_padding">10dp</dimen>
+	<dimen name="card_elevation">0dp</dimen>
+</resources>

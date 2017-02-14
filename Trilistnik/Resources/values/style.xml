@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+	
+	<style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+	<item name="colorPrimary">#673AB7</item>
+    <item name="colorPrimaryDark">#512DA8</item>
+    <item name="colorAccent">#00BCD4</item>
+	<item name="android:windowBackground">@drawable/splash_centered</item>
+	<item name="android:colorBackground">@android:color/white</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+	</style>
+
+	<style name="mainAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">#1565C0</item>
+    <item name="colorPrimaryDark">#0D47A1</item>
+    <item name="colorAccent">#1976D2</item>
+	<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+	<item name="android:windowTranslucentStatus">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+	</style>
+
+</resources>

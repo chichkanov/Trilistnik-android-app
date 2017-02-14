@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_news"
+      android:title="Новости" />
+    <item
+      android:id="@+id/nav_transport"
+      android:title="Транспорт" />
+    <item
+      android:id="@+id/nav_pay"
+      android:title="Оплата" />
+	<item
+      android:id="@+id/nav_fix"
+      android:title="Заявка на ремонт" />
+	<item
+      android:id="@+id/nav_info"
+      android:title="Об общежитии" />
+    <item
+      android:id="@+id/nav_settings"
+      android:title="Настройки" />
+  </group>
+</menu>
