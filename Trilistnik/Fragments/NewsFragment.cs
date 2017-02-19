@@ -33,12 +33,23 @@ namespace Trilistnik
 		private LinearLayout noInternetLayout;
 		private SwipeRefreshLayout refresher;
 		private Button noInternetButton;
-		ViewGroup root;
+		private ViewGroup root;
+		private InternetReceiver internetReceiver;
+		private bool isLoading = false;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-
+			internetReceiver = new InternetReceiver();
+			newsCache = new NewsCache();
+			internetReceiver.InternetConnectionLost += (sender, e) =>
+			{
+				if (isLoading)
+				{
+					Toast.MakeText(MainActivity.context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
+					isLoading = false;
+				}
+			};
 		}
 
 		public async override void OnActivityCreated(Bundle savedInstanceState)
@@ -57,62 +68,88 @@ namespace Trilistnik
 		{
 			root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
 			noInternetLayout = root.FindViewById<LinearLayout>(Resource.Id.noInternetContent);
+
 			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewNews);
+			recyclerView.HasFixedSize = true;
+
 			refresher = root.FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
 			refresher.Refresh += HandleRefresh;
 
-			newsCache = new NewsCache();
-			recyclerView.HasFixedSize = true;
 			var layoutManager = new LinearLayoutManager(Activity);
 			var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
 			onScrollListener.LoadMoreEvent += LoadMore;
+
 			recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
+
 			if(newsCache.IsExist())GetCachedNews();
+
 			if (!newsCache.IsExist() && !MainActivity.isOnline(MainActivity.context))
 			{
 				ShowNoInternetNofitication(root);
-				noInternetButton = root.FindViewById<Button>(Resource.Id.buttonRepeatConnection);
-				noInternetButton.Click += async (sender, e) =>
-				{
-					if (MainActivity.isOnline(MainActivity.context))
-					{
-						await GetStartNewsFeed();
-					}
-				};
 			}
 			return root;
 		}
 
+		public override void OnResume()
+		{
+			base.OnResume();
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.AddAction("android.net.conn.CONNECTIVITY_CHANGE");
+			Activity.RegisterReceiver(internetReceiver, intentFilter);
+		}
+
+		public override void OnStop()
+		{
+			base.OnResume();
+			Activity.UnregisterReceiver(internetReceiver);
+		}
 
 		public async Task GetStartNewsFeed()
 		{
-			using (var w = new WebClient())
+			try
 			{
-				newsOffset = 20;
-				w.Encoding = Encoding.UTF8;
-				string resp = await w.DownloadStringTaskAsync(apiurl);
-				newsFeed = GetNews(resp, true).ToList();
-				newsAdapter = new NewsAdapter(newsFeed);
-				newsAdapter.ItemClick += NewsItemClick;
-				if (MainActivity.isOnline(MainActivity.context) && noInternetLayout.Visibility == ViewStates.Visible)
+				isLoading = true;
+				using (var w = new WebClient())
 				{
-					noInternetLayout.Visibility = ViewStates.Gone;
+					newsOffset = 20;
+					w.Encoding = Encoding.UTF8;
+					string resp = await w.DownloadStringTaskAsync(apiurl);
+					newsFeed = GetNews(resp, true).ToList();
+					newsAdapter = new NewsAdapter(newsFeed);
+					newsAdapter.ItemClick += NewsItemClick;
+					if (MainActivity.isOnline(MainActivity.context) && noInternetLayout.Visibility == ViewStates.Visible)
+					{
+						noInternetLayout.Visibility = ViewStates.Gone;
+					}
+					recyclerView.SetAdapter(newsAdapter);
+					refresher.Refreshing = false;
+					isLoading = false;
 				}
-				recyclerView.SetAdapter(newsAdapter);
+			}
+			catch (System.Net.WebException)
+			{
 				refresher.Refreshing = false;
 			}
 		}
 
 		public async Task GetAdditionalNewsFeed(int offset)
 		{
-			using (var w = new WebClient())
+			try
 			{
-				newsOffset += 20;
-				w.Encoding = Encoding.UTF8;
-				string resp = await w.DownloadStringTaskAsync(apiurlAdd + offset);
-				newsFeed.AddRange(GetNews(resp));
-				newsAdapter.NotifyItemInserted(newsFeed.Count);
+				isLoading = true;
+				using (var w = new WebClient())
+				{
+					newsOffset += 20;
+					w.Encoding = Encoding.UTF8;
+					string resp = await w.DownloadStringTaskAsync(apiurlAdd + offset);
+					newsFeed.AddRange(GetNews(resp));
+					newsAdapter.NotifyItemInserted(newsFeed.Count);
+					isLoading = false;
+				}
+			}
+			catch (System.Net.WebException)
+			{
 			}
 		}
 
@@ -172,6 +209,14 @@ namespace Trilistnik
 			{
 				noInternetLayout.GetChildAt(i).Visibility = ViewStates.Visible;
 			}
+			noInternetButton = root.FindViewById<Button>(Resource.Id.buttonRepeatConnection);
+			noInternetButton.Click += async (sender, e) =>
+			{
+				if (MainActivity.isOnline(MainActivity.context))
+				{
+					await GetStartNewsFeed();
+				}
+			};
 		}
 
 		/// <summary>
@@ -201,10 +246,11 @@ namespace Trilistnik
 		{
 			Log.Debug("dasdasd", position.ToString());
 			var newsPostIntent = new Intent(MainActivity.context, typeof(NewsPost));
-			newsPostIntent.PutExtra("index", position);
+			newsPostIntent.PutExtra("newsText", root.FindViewById<TextView>(Resource.Id.newsText).Text);
 			ActivityOptions activityOptions = ActivityOptions.MakeSceneTransitionAnimation(
 				Activity,
-				new Pair(root.FindViewById(Resource.Id.newsText), NewsPost.VIEW_NAME_NEWS_TEXT)
+				new Pair(root.FindViewById(Resource.Id.newsText), NewsPost.VIEW_NAME_NEWS_TEXT),
+				new Pair(root.FindViewById(Resource.Id.newsImg), NewsPost.VIEW_NAME_NEWS_IMG)
 			);
 			StartActivity(newsPostIntent, activityOptions.ToBundle());
 		}

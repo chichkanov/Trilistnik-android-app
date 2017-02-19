@@ -100,7 +100,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsAdapter.cs" />
@@ -112,11 +111,10 @@
     <Compile Include="NewsAdapter.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="XamarinRecyclerViewOnScrollListener.cs" />
-    <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="NewsCache.cs" />
-    <Compile Include="NewsPost.cs" />
+    <Compile Include="InternetReceiver.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Activities\NewsPost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -175,7 +173,7 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Fragments\" />
     <Folder Include="Resources\anim\" />
-    <Folder Include="Создать папку\" />
+    <Folder Include="Activities\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />

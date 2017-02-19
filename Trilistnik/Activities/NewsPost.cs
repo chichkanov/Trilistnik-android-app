@@ -17,7 +17,10 @@ namespace Trilistnik
 	public class NewsPost : Activity
 	{
 		public static readonly string VIEW_NAME_NEWS_TEXT = "detail:main:text";
+		public static readonly string VIEW_NAME_NEWS_IMG = "detail:main:img";
+
 		private TextView postText;
+		private ImageView postImg;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -26,7 +29,10 @@ namespace Trilistnik
 
 			postText = FindViewById<TextView>(Resource.Id.newsPostText);
 			postText.TransitionName = VIEW_NAME_NEWS_TEXT;
-			postText.Text = "dasdas";
+			postText.Text = Intent.GetStringExtra("newsText");
+
+			postImg = FindViewById<ImageView>(Resource.Id.newsImage);
+			postText.TransitionName = VIEW_NAME_NEWS_IMG;
 		}
 	}
 }

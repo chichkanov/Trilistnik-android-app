@@ -10,6 +10,7 @@ using Android.Net;
 using System;
 using Android.Content;
 using Android.Widget;
+using Java.Lang;
 
 namespace Trilistnik
 {
@@ -26,15 +27,16 @@ namespace Trilistnik
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
 
-		protected async override void OnCreate(Bundle savedInstanceState)
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			SetTheme(Resource.Style.mainAppTheme);
 			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.Main);
+
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
-			toolbar.Title = "Новости";
-			SetSupportActionBar(toolbar);
+			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+			var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
 			context = Application.Context;
 			settingsFragment = new SettingsFragment();
@@ -42,15 +44,14 @@ namespace Trilistnik
 			newsFragment = new NewsFragment();
 			fixFragment = new FixFragment();
 
+			toolbar.Title = "Новости";
+			SetSupportActionBar(toolbar);
+
 			//Enable support action bar to display hamburger
 			SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-
-			var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 			navigationView.SetCheckedItem(Resource.Id.nav_news);
-
 			SetupDrawerContent(navigationView);
 
 			var trans = SupportFragmentManager.BeginTransaction();
@@ -65,24 +66,31 @@ namespace Trilistnik
 			trans.Commit();
 		}
 
+		/// <summary>
+		/// If drawer open button pressed
+		/// </summary>
+		/// <returns><c>true</c>Selected<c>false</c>Otherwise</returns>
+		/// <param name="item">Item</param>
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
-
 			switch (item.ItemId)
 			{
 				case Android.Resource.Id.Home:
 					drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
 					return true;
 				default:
-					return base.OnOptionsItemSelected(item);	
+					return base.OnOptionsItemSelected(item);
 			}
-
 		}
 
 
+		/// <summary>
+		/// Set drawer content and add item selected listener
+		/// </summary>
+		/// <param name="navigationView">Navigation view</param>
 		private void SetupDrawerContent(NavigationView navigationView)
 		{
-			
+
 			navigationView.NavigationItemSelected += (sender, e) =>
 			{
 				e.MenuItem.SetChecked(true);
@@ -99,16 +107,20 @@ namespace Trilistnik
 					case Resource.Id.nav_fix:
 						toolbar.Title = "Заявка на ремонт";
 						ShowFragment(fixFragment);
-						break;	
+						break;
 					case Resource.Id.nav_settings:
 						toolbar.Title = "Настройки";
 						ShowFragment(settingsFragment);
-						break;	
+						break;
 				}
 				drawerLayout.CloseDrawers();
 			};
 		}
 
+		/// <summary>
+		/// Show chosen fragment
+		/// </summary>
+		/// <param name="fragment">Fragment</param>
 		private void ShowFragment(Fragment fragment)
 		{
 			var trans = SupportFragmentManager.BeginTransaction();
@@ -120,11 +132,17 @@ namespace Trilistnik
 			currentFragment = fragment;
 		}
 
+		/// <summary>
+		/// CCheck internet connection
+		/// </summary>
+		/// <returns><c>true</c>If online<c>false</c>If offline</returns>
+		/// <param name="context">Contex.</param>
 		public static bool isOnline(Context context)
 		{
-			ConnectivityManager connectivityManager = (ConnectivityManager)context.GetSystemService(ConnectivityService);
-			NetworkInfo networkInfo = connectivityManager.ActiveNetworkInfo;
-			return networkInfo != null && networkInfo.IsConnected;
+			Runtime runtime = Runtime.GetRuntime();
+			Java.Lang.Process ipProcess = runtime.Exec("/system/bin/ping -c 1 8.8.8.8");
+			int exitValue = ipProcess.WaitFor();
+			return exitValue == 0;
 		}
 	}
 }
