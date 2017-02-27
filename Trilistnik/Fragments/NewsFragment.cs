@@ -42,6 +42,12 @@ namespace Trilistnik
 			base.OnCreate(savedInstanceState);
 			internetReceiver = new InternetReceiver();
 			newsCache = new NewsCache();
+		}
+
+		public async override void OnActivityCreated(Bundle savedInstanceState)
+		{
+			base.OnActivityCreated(savedInstanceState);
+
 			internetReceiver.InternetConnectionLost += (sender, e) =>
 			{
 				if (isLoading)
@@ -50,11 +56,11 @@ namespace Trilistnik
 					isLoading = false;
 				}
 			};
-		}
 
-		public async override void OnActivityCreated(Bundle savedInstanceState)
-		{
-			base.OnActivityCreated(savedInstanceState);
+			internetReceiver.InternetConnectionReconnect += (sender, e) =>
+			{
+				XamarinRecyclerViewOnScrollListener.isNotifyShowing = false;
+			};
 
 			if (MainActivity.isOnline(MainActivity.context))
 			{
@@ -78,7 +84,6 @@ namespace Trilistnik
 			var layoutManager = new LinearLayoutManager(Activity);
 			var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
 			onScrollListener.LoadMoreEvent += LoadMore;
-
 			recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
 

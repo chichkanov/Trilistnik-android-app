@@ -9,7 +9,7 @@ namespace Trilistnik
 		public delegate void LoadMoreEventHandler(object sender, EventArgs e);
 		public event LoadMoreEventHandler LoadMoreEvent;
 		private bool isLoading = false;
-		private bool isNotifyShowing = false;
+		public static bool isNotifyShowing = false;
 		private int previousTotal;
 		private int visibleThreshold = 2;
 
@@ -29,7 +29,7 @@ namespace Trilistnik
 			var totalItemCount = recyclerView.GetAdapter().ItemCount;
 			var pastVisiblesItems = layoutManager.FindFirstVisibleItemPosition();
 
-			if (!isLoading && (visibleItemCount + pastVisiblesItems + visibleThreshold) >= totalItemCount)
+			if (!isNotifyShowing && !isLoading && (visibleItemCount + pastVisiblesItems + visibleThreshold) >= totalItemCount)
 			{
 				if (MainActivity.isOnline(MainActivity.context))
 				{
