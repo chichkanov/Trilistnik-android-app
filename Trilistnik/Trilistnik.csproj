@@ -103,19 +103,19 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsAdapter.cs" />
-    <Compile Include="Post.cs" />
     <Compile Include="Fragments\FixFragment.cs" />
     <Compile Include="Fragments\NewsFragment.cs" />
     <Compile Include="Fragments\PayFragment.cs" />
-    <Compile Include="NewsViewHolder.cs" />
-    <Compile Include="NewsAdapter.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
-    <Compile Include="XamarinRecyclerViewOnScrollListener.cs" />
-    <Compile Include="NewsCache.cs" />
-    <Compile Include="InternetReceiver.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\NewsPost.cs" />
     <Compile Include="Interfaces\IDataLoader.cs" />
+    <Compile Include="NewsComponents\JsonDataLoader.cs" />
+    <Compile Include="NewsComponents\NewsAdapter.cs" />
+    <Compile Include="NewsComponents\NewsCache.cs" />
+    <Compile Include="NewsComponents\NewsViewHolder.cs" />
+    <Compile Include="NewsComponents\Post.cs" />
+    <Compile Include="NewsComponents\XamarinRecyclerViewOnScrollListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -176,6 +176,7 @@
     <Folder Include="Resources\anim\" />
     <Folder Include="Activities\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="NewsComponents\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />

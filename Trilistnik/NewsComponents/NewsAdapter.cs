@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Load.Engine;
 
 namespace Trilistnik
 {
@@ -22,13 +23,13 @@ namespace Trilistnik
 		{
 			var newsViewHolder = (NewsViewHolder)holder;
 			newsViewHolder.NewsText.Text = newsFeed[position].Text;
-			newsViewHolder.NewsDate.Text = DateTimeOffset.FromUnixTimeSeconds(long.Parse(newsFeed[position].Date)).DateTime.ToString();
-			// Placeholder : 
+			newsViewHolder.NewsDate.Text = DateTimeOffset.FromUnixTimeSeconds(long.Parse(newsFeed[position].Date)).LocalDateTime.ToString();
 			if (newsFeed[position].Img != null)
 			{
-				Glide.With(newsViewHolder.NewsImg.Context).Load(newsFeed[position].Img)
+				Glide.With(newsViewHolder.NewsImg.Context).Load(newsFeed[position].Img).FitCenter()
 					 .Placeholder(Resource.Drawable.empty)
-					 .Into(newsViewHolder.NewsImg);
+				     .DiskCacheStrategy(DiskCacheStrategy.All)
+				     .Into(newsViewHolder.NewsImg);
 			}
 			else {
 				newsViewHolder.NewsImg.SetImageDrawable(null);

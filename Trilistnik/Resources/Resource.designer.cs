@@ -4127,8 +4127,8 @@ namespace Trilistnik
 			// aapt resource value: 0x7f07012a
 			public const int Theme_AppCompat_NoActionBar = 2131165482;
 			
-			// aapt resource value: 0x7f070180
-			public const int Theme_Custom = 2131165568;
+			// aapt resource value: 0x7f070181
+			public const int Theme_Custom = 2131165569;
 			
 			// aapt resource value: 0x7f07000c
 			public const int Theme_Design = 2131165196;
@@ -4426,6 +4426,9 @@ namespace Trilistnik
 			
 			// aapt resource value: 0x7f07017f
 			public const int mainAppTheme = 2131165567;
+			
+			// aapt resource value: 0x7f070180
+			public const int progress_bar_style = 2131165568;
 			
 			// aapt resource value: 0x7f07017e
 			public const int splashScreenTheme = 2131165566;

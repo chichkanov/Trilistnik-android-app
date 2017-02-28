@@ -4,6 +4,6 @@
     <dimen name="launch_screen_text_bottom">48.0dip</dimen>
 	 <dimen name="card_margin">5dp</dimen>
     <dimen name="card_album_radius">0dp</dimen>
-	<dimen name="news_text_padding">12dp</dimen>
+	<dimen name="news_text_padding">14dp</dimen>
 	<dimen name="card_elevation">0dp</dimen>
 </resources>

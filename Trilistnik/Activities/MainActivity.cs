@@ -64,6 +64,7 @@ namespace Trilistnik
 			trans.Add(Resource.Id.content, newsFragment);
 			currentFragment = newsFragment;
 			trans.Commit();
+
 		}
 
 		/// <summary>
