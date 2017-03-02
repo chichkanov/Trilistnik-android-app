@@ -31,7 +31,7 @@ namespace Trilistnik
 
 			if (!isNotifyShowing && !isLoading && (visibleItemCount + pastVisiblesItems + visibleThreshold) >= totalItemCount)
 			{
-				if (MainActivity.isOnline(MainActivity.context))
+				if (MainActivity.isOnline)
 				{
 					isLoading = true;
 					previousTotal = totalItemCount;

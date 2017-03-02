@@ -18,6 +18,7 @@ namespace Trilistnik
 	public class PayFragment : Android.Support.V4.App.Fragment
 	{
 		private WebView webView;
+		private View loadingSpinner;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
@@ -26,25 +27,29 @@ namespace Trilistnik
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			ViewGroup root;
-			if (MainActivity.isOnline(MainActivity.context))
+			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.payfragment, null);
+
+			webView = root.FindViewById<WebView>(Resource.Id.webViewPay);
+			loadingSpinner = root.FindViewById(Resource.Id.loading_spinner);
+
+			WebSettings webSettings = webView.Settings;
+			webSettings.SetAppCacheMaxSize(1024 * 1024 * 8);
+			webSettings.SetAppCachePath("data/data/com.chichkanov.trilistnik/cache");
+			webSettings.SetAppCacheEnabled(true);
+			webSettings.CacheMode = CacheModes.CacheElseNetwork;
+			webSettings.JavaScriptEnabled = true;
+			webView.SetWebViewClient(new MyWebViewClient(loadingSpinner, webView));
+
+			if (MainActivity.isOnline)
 			{
-				root = (ViewGroup)inflater.Inflate(Resource.Layout.payfragment, null);
-				webView = root.FindViewById<WebView>(Resource.Id.webViewPay);
-				WebSettings webSettings = webView.Settings;
-				webSettings.SetAppCacheMaxSize(1024 * 1024 * 8);
-				webSettings.SetAppCachePath("data/data/com.chichkanov.trilistnik/cache");
-				webSettings.SetAppCacheEnabled(true);
-				webSettings.CacheMode = CacheModes.CacheElseNetwork;
-				webSettings.JavaScriptEnabled = true;
-				webView.SetWebViewClient(new WebViewClient());
 				webView.LoadUrl("https://pay.hse.ru/moscow/prg");
 			}
-			else {
+			else 
+			{
 				root = (ViewGroup)inflater.Inflate(Resource.Layout.fragmentNoInternet, null);
 			}
+
 			return root;
 		}
-
 	}
 }

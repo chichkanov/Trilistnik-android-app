@@ -18,7 +18,10 @@ namespace Trilistnik
 			NewsDate = itemView.FindViewById<TextView>(Resource.Id.newsDate);
 			NewsImg = itemView.FindViewById<ImageView>(Resource.Id.newsImg);
 
-			itemView.Click += (sender, e) => listener(Position);
+			NewsText.Click += (sender, e) => listener(Position);
+			NewsDate.Click += (sender, e) => listener(Position);
+			NewsImg.Click += (sender, e) => listener(Position);
+
 		}
 	}
 }

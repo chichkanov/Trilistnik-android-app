@@ -18,6 +18,8 @@ namespace Trilistnik
 	public class MainActivity : AppCompatActivity
 	{
 		public static Context context;
+		public static bool isOnline;
+
 		private DrawerLayout drawerLayout;
 		private SettingsFragment settingsFragment;
 		private PayFragment payFragment;
@@ -38,11 +40,14 @@ namespace Trilistnik
 			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
+			isOnline = checkConnection();
+			InternetReceiver internetReceiver = new InternetReceiver();
+			this.RegisterReceiver(internetReceiver, new IntentFilter(ConnectivityManager.ConnectivityAction));
+			internetReceiver.InternetConnectionLost += (sender, e) => isOnline = false;
+			internetReceiver.InternetConnectionReconnect += (sender, e) => isOnline = true;
+
 			context = Application.Context;
-			settingsFragment = new SettingsFragment();
-			payFragment = new PayFragment();
 			newsFragment = new NewsFragment();
-			fixFragment = new FixFragment();
 
 			toolbar.Title = "Новости";
 			SetSupportActionBar(toolbar);
@@ -55,16 +60,9 @@ namespace Trilistnik
 			SetupDrawerContent(navigationView);
 
 			var trans = SupportFragmentManager.BeginTransaction();
-			trans.Add(Resource.Id.content, settingsFragment);
-			trans.Hide(settingsFragment);
-			trans.Add(Resource.Id.content, payFragment);
-			trans.Hide(payFragment);
-			trans.Add(Resource.Id.content, fixFragment);
-			trans.Hide(fixFragment);
 			trans.Add(Resource.Id.content, newsFragment);
 			currentFragment = newsFragment;
 			trans.Commit();
-
 		}
 
 		/// <summary>
@@ -102,14 +100,17 @@ namespace Trilistnik
 						ShowFragment(newsFragment);
 						break;
 					case Resource.Id.nav_pay:
+						if (payFragment == null) payFragment = new PayFragment();
 						toolbar.Title = "Оплата";
 						ShowFragment(payFragment);
 						break;
 					case Resource.Id.nav_fix:
+						if (fixFragment == null) fixFragment = new FixFragment();
 						toolbar.Title = "Заявка на ремонт";
 						ShowFragment(fixFragment);
 						break;
 					case Resource.Id.nav_settings:
+						if (settingsFragment == null) settingsFragment = new SettingsFragment();
 						toolbar.Title = "Настройки";
 						ShowFragment(settingsFragment);
 						break;
@@ -124,13 +125,15 @@ namespace Trilistnik
 		/// <param name="fragment">Fragment</param>
 		private void ShowFragment(Fragment fragment)
 		{
+			if (fragment.IsVisible) return;
 			var trans = SupportFragmentManager.BeginTransaction();
 			trans.SetCustomAnimations(Resource.Animation.enter, Resource.Animation.exit);
 			trans.Hide(currentFragment);
-			appBarLayout.SetExpanded(true);
-			trans.Show(fragment);
-			trans.Commit();
+			if (fragment.IsAdded) trans.Show(fragment);
+			else trans.Add(Resource.Id.content, fragment);
 			currentFragment = fragment;
+			appBarLayout.SetExpanded(true);
+			trans.Commit();
 		}
 
 		/// <summary>
@@ -138,7 +141,7 @@ namespace Trilistnik
 		/// </summary>
 		/// <returns><c>true</c>If online<c>false</c>If offline</returns>
 		/// <param name="context">Contex.</param>
-		public static bool isOnline(Context context)
+		public static bool checkConnection()
 		{
 			Runtime runtime = Runtime.GetRuntime();
 			Java.Lang.Process ipProcess = runtime.Exec("/system/bin/ping -c 1 8.8.8.8");

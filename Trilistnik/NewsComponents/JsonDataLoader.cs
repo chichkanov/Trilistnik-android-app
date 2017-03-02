@@ -20,13 +20,20 @@ namespace Trilistnik
 		/// <param name="offset">Offset</param>
 		public async static Task<IEnumerable<Post>> GetData(int offset = 0)
 		{
-			using (var w = new HttpClient())
+			try
 			{
-				string apiUrlFinal = offset != 0 ? apiurl + "&offset=" + offset.ToString() : apiurl;
-				var resp = await w.GetStringAsync(apiUrlFinal);
-				JObject json = JObject.Parse(resp);
-				if(offset == 0) NewsCache.CreateNewsData(json.ToString());
-				return ParseData(json);
+				using (var w = new HttpClient())
+				{
+					string apiUrlFinal = offset != 0 ? apiurl + "&offset=" + offset.ToString() : apiurl;
+					var resp = await w.GetStringAsync(apiUrlFinal);
+					JObject json = JObject.Parse(resp);
+					if (offset == 0) NewsCache.CreateNewsData(json.ToString());
+					return ParseData(json);
+				}
+			}
+			catch (System.Net.WebException) 
+			{
+				return null;
 			}
 		}
 

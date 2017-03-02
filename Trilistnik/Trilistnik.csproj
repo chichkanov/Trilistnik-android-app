@@ -102,7 +102,6 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsAdapter.cs" />
     <Compile Include="Fragments\FixFragment.cs" />
     <Compile Include="Fragments\NewsFragment.cs" />
     <Compile Include="Fragments\PayFragment.cs" />
@@ -116,6 +115,9 @@
     <Compile Include="NewsComponents\NewsViewHolder.cs" />
     <Compile Include="NewsComponents\Post.cs" />
     <Compile Include="NewsComponents\XamarinRecyclerViewOnScrollListener.cs" />
+    <Compile Include="Utilities\InternetReceiver.cs" />
+    <Compile Include="Utilities\SettingsAdapter.cs" />
+    <Compile Include="Utilities\MyWebViewClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -163,6 +165,31 @@
     <AndroidResource Include="Resources\drawable\gradient_bottom.xml" />
     <AndroidResource Include="Resources\drawable\background_shadow.xml" />
     <AndroidResource Include="Resources\layout\NewsPost.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_build_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_payment_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_settings_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_train_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_build_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_payment_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_settings_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_train_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_build_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_payment_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_train_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_build_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_payment_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_settings_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_train_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_build_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_payment_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_train_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -177,6 +204,7 @@
     <Folder Include="Activities\" />
     <Folder Include="Interfaces\" />
     <Folder Include="NewsComponents\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />
