@@ -25,6 +25,7 @@ namespace Trilistnik
 		private PayFragment payFragment;
 		private FixFragment fixFragment;
 		private NewsFragment newsFragment;
+		private TransportFragment transportFragment;
 		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
@@ -98,6 +99,11 @@ namespace Trilistnik
 					case Resource.Id.nav_news:
 						toolbar.Title = "Новости";
 						ShowFragment(newsFragment);
+						break;
+					case Resource.Id.nav_transport:
+						if (transportFragment == null) transportFragment = new TransportFragment();
+						toolbar.Title = "Транспорт";
+						ShowFragment(transportFragment);
 						break;
 					case Resource.Id.nav_pay:
 						if (payFragment == null) payFragment = new PayFragment();

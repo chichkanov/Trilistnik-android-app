@@ -4,7 +4,7 @@ using Android.Widget;
 
 namespace Trilistnik
 {
-	public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
+	public class XamarinRecyclerViewOnScrollListenerNews : RecyclerView.OnScrollListener
 	{
 		public delegate void LoadMoreEventHandler(object sender, EventArgs e);
 		public event LoadMoreEventHandler LoadMoreEvent;
@@ -15,7 +15,7 @@ namespace Trilistnik
 
 		private LinearLayoutManager layoutManager;
 
-		public XamarinRecyclerViewOnScrollListener(LinearLayoutManager layoutManager)
+		public XamarinRecyclerViewOnScrollListenerNews(LinearLayoutManager layoutManager)
 		{
 			this.layoutManager = layoutManager;
 		}

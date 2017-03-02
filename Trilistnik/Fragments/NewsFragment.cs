@@ -60,7 +60,7 @@ namespace Trilistnik
 			refresher.Refresh += HandleRefresh;
 
 			var layoutManager = new LinearLayoutManager(Activity);
-			var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
+			var onScrollListener = new XamarinRecyclerViewOnScrollListenerNews(layoutManager);
 			onScrollListener.LoadMoreEvent += LoadMore;
 			recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
@@ -85,7 +85,7 @@ namespace Trilistnik
 			try
 			{
 				newsOffset = 20;
-				var data = await JsonDataLoader.GetData();
+				var data = await JsonDataLoader.GetNewsData();
 				newsFeed = data.ToList();
 				newsAdapter = new NewsAdapter(newsFeed);
 				newsAdapter.ItemClick += NewsItemClick;
@@ -109,7 +109,7 @@ namespace Trilistnik
 		/// <returns>Array with new news</returns>
 		public async Task GetAdditionalNewsFeed()
 		{
-			var data = await JsonDataLoader.GetData(newsOffset);
+			var data = await JsonDataLoader.GetNewsData(newsOffset);
 			newsFeed.AddRange(data);
 			newsAdapter.NotifyItemInserted(newsFeed.Count);
 			newsOffset += 20;
@@ -121,7 +121,7 @@ namespace Trilistnik
 		public void GetCachedNews()
 		{
 			JObject json = JObject.Parse(NewsCache.ReadNewsData());
-			newsFeed = JsonDataLoader.ParseData(json).ToList();
+			newsFeed = JsonDataLoader.ParseNewsData(json).ToList();
 			newsAdapter = new NewsAdapter(newsFeed);
 			recyclerView.SetAdapter(newsAdapter);
 		}

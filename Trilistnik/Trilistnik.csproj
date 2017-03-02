@@ -109,15 +109,19 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\NewsPost.cs" />
     <Compile Include="Interfaces\IDataLoader.cs" />
-    <Compile Include="NewsComponents\JsonDataLoader.cs" />
     <Compile Include="NewsComponents\NewsAdapter.cs" />
     <Compile Include="NewsComponents\NewsCache.cs" />
     <Compile Include="NewsComponents\NewsViewHolder.cs" />
     <Compile Include="NewsComponents\Post.cs" />
-    <Compile Include="NewsComponents\XamarinRecyclerViewOnScrollListener.cs" />
+    <Compile Include="NewsComponents\XamarinRecyclerViewOnScrollListenerNews.cs" />
     <Compile Include="Utilities\InternetReceiver.cs" />
     <Compile Include="Utilities\SettingsAdapter.cs" />
     <Compile Include="Utilities\MyWebViewClient.cs" />
+    <Compile Include="Fragments\TransportFragment.cs" />
+    <Compile Include="Utilities\JsonDataLoader.cs" />
+    <Compile Include="TransportComponents\TransportAdapter.cs" />
+    <Compile Include="TransportComponents\TransportViewHolder.cs" />
+    <Compile Include="TransportComponents\TrainInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -190,6 +194,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_payment_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_train_black_24dp.png" />
+    <AndroidResource Include="Resources\layout\transportfragment.axml" />
+    <AndroidResource Include="Resources\layout\transport_item.axml" />
+    <AndroidResource Include="Resources\drawable\listborder.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -205,6 +212,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="NewsComponents\" />
     <Folder Include="Utilities\" />
+    <Folder Include="TransportComponents\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />

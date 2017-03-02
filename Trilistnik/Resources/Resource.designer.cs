@@ -2219,58 +2219,61 @@ namespace Trilistnik
 			public const int ic_train_black_24dp = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int logo_droid = 2130837606;
+			public const int listborder = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int logo_text = 2130837607;
+			public const int logo_droid = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int navigation_empty_icon = 2130837608;
+			public const int logo_text = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int notification_action_background = 2130837609;
+			public const int navigation_empty_icon = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int notification_bg = 2130837610;
+			public const int notification_action_background = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int notification_bg_low = 2130837611;
+			public const int notification_bg = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int notification_bg_low_normal = 2130837612;
+			public const int notification_bg_low = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int notification_bg_low_pressed = 2130837613;
+			public const int notification_bg_low_normal = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int notification_bg_normal = 2130837614;
+			public const int notification_bg_low_pressed = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int notification_bg_normal_pressed = 2130837615;
+			public const int notification_bg_normal = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int notification_icon_background = 2130837616;
-			
-			// aapt resource value: 0x7f020076
-			public const int notification_template_icon_bg = 2130837622;
-			
-			// aapt resource value: 0x7f020077
-			public const int notification_template_icon_low_bg = 2130837623;
+			public const int notification_bg_normal_pressed = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int notification_tile_bg = 2130837617;
+			public const int notification_icon_background = 2130837617;
+			
+			// aapt resource value: 0x7f020077
+			public const int notification_template_icon_bg = 2130837623;
+			
+			// aapt resource value: 0x7f020078
+			public const int notification_template_icon_low_bg = 2130837624;
 			
 			// aapt resource value: 0x7f020072
-			public const int notify_panel_notification_icon_bg = 2130837618;
+			public const int notification_tile_bg = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int splash_centered = 2130837619;
+			public const int notify_panel_notification_icon_bg = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int splash_screen = 2130837620;
+			public const int splash_centered = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int trilist = 2130837621;
+			public const int splash_screen = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int trilist = 2130837622;
 			
 			static Drawable()
 			{
@@ -2378,11 +2381,17 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b0083
 			public const int buttonRepeatConnection = 2131427459;
 			
+			// aapt resource value: 0x7f0b00b9
+			public const int buttonRepeatConnectionTransport = 2131427513;
+			
 			// aapt resource value: 0x7f0b009a
 			public const int cancel_action = 2131427482;
 			
 			// aapt resource value: 0x7f0b0081
 			public const int cat = 2131427457;
+			
+			// aapt resource value: 0x7f0b00b7
+			public const int catTransport = 2131427511;
 			
 			// aapt resource value: 0x7f0b0016
 			public const int center = 2131427350;
@@ -2420,8 +2429,8 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b004e
 			public const int contentPanel = 2131427406;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int content_frame = 2131427505;
+			// aapt resource value: 0x7f0b00bd
+			public const int content_frame = 2131427517;
 			
 			// aapt resource value: 0x7f0b0055
 			public const int custom = 2131427413;
@@ -2525,8 +2534,8 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b001b
 			public const int left = 2131427355;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int left_drawer = 2131427506;
+			// aapt resource value: 0x7f0b00be
+			public const int left_drawer = 2131427518;
 			
 			// aapt resource value: 0x7f0b00a8
 			public const int line1 = 2131427496;
@@ -2546,8 +2555,11 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b008f
 			public const int main_content = 2131427471;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int masked = 2131427504;
+			// aapt resource value: 0x7f0b00b5
+			public const int main_contentTransport = 2131427509;
+			
+			// aapt resource value: 0x7f0b00bc
+			public const int masked = 2131427516;
 			
 			// aapt resource value: 0x7f0b009c
 			public const int media_actions = 2131427484;
@@ -2561,23 +2573,23 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b002b
 			public const int multiply = 2131427371;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int nav_fix = 2131427510;
+			// aapt resource value: 0x7f0b00c2
+			public const int nav_fix = 2131427522;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int nav_info = 2131427511;
+			// aapt resource value: 0x7f0b00c3
+			public const int nav_info = 2131427523;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int nav_news = 2131427507;
+			// aapt resource value: 0x7f0b00bf
+			public const int nav_news = 2131427519;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int nav_pay = 2131427509;
+			// aapt resource value: 0x7f0b00c1
+			public const int nav_pay = 2131427521;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int nav_settings = 2131427512;
+			// aapt resource value: 0x7f0b00c4
+			public const int nav_settings = 2131427524;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int nav_transport = 2131427508;
+			// aapt resource value: 0x7f0b00c0
+			public const int nav_transport = 2131427520;
 			
 			// aapt resource value: 0x7f0b0089
 			public const int nav_view = 2131427465;
@@ -2606,8 +2618,14 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b0090
 			public const int noInternetContent = 2131427472;
 			
+			// aapt resource value: 0x7f0b00b6
+			public const int noInternetContentTransport = 2131427510;
+			
 			// aapt resource value: 0x7f0b0082
 			public const int noInternetText = 2131427458;
+			
+			// aapt resource value: 0x7f0b00b8
+			public const int noInternetTextTransport = 2131427512;
 			
 			// aapt resource value: 0x7f0b001f
 			public const int none = 2131427359;
@@ -2645,8 +2663,14 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b0091
 			public const int recyclerViewNews = 2131427473;
 			
+			// aapt resource value: 0x7f0b00ba
+			public const int recyclerViewTransport = 2131427514;
+			
 			// aapt resource value: 0x7f0b008e
 			public const int refresher = 2131427470;
+			
+			// aapt resource value: 0x7f0b00b4
+			public const int refresherTransport = 2131427508;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int right = 2131427356;
@@ -2816,6 +2840,21 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b000e
 			public const int transition_scene_layoutid_cache = 2131427342;
 			
+			// aapt resource value: 0x7f0b00b0
+			public const int transportArrival = 2131427504;
+			
+			// aapt resource value: 0x7f0b00af
+			public const int transportDeparture = 2131427503;
+			
+			// aapt resource value: 0x7f0b00b1
+			public const int transportDuration = 2131427505;
+			
+			// aapt resource value: 0x7f0b00b3
+			public const int transportStops = 2131427507;
+			
+			// aapt resource value: 0x7f0b00b2
+			public const int transportTitle = 2131427506;
+			
 			// aapt resource value: 0x7f0b000b
 			public const int up = 2131427339;
 			
@@ -2825,8 +2864,8 @@ namespace Trilistnik
 			// aapt resource value: 0x7f0b0002
 			public const int view_offset_helper = 2131427330;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int visible = 2131427503;
+			// aapt resource value: 0x7f0b00bb
+			public const int visible = 2131427515;
 			
 			// aapt resource value: 0x7f0b0080
 			public const int webViewFix = 2131427456;
@@ -3102,6 +3141,12 @@ namespace Trilistnik
 			
 			// aapt resource value: 0x7f040045
 			public const int toolbar = 2130968645;
+			
+			// aapt resource value: 0x7f040046
+			public const int transport_item = 2130968646;
+			
+			// aapt resource value: 0x7f040047
+			public const int transportfragment = 2130968647;
 			
 			static Layout()
 			{
