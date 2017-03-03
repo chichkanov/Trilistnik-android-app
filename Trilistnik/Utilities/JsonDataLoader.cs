@@ -12,7 +12,11 @@ namespace Trilistnik
 	public class JsonDataLoader
 	{
 		private const string vkapiurl = "https://api.vk.com/method/wall.get?v=5.50&count=20&owner_id=-33374477&filter=owner";
-		private const string yandexapiurl = "https://api.rasp.yandex.net/v1.0/search/?apikey=723f283e-9bdd-4b1e-92ac-9cda196d1e70&format=json&lang=ru&system=esr&transport_types=suburban&from=182209&to=198230&page=1&date=2017-03-02";
+		private const string yandexapiurl = "https://api.rasp.yandex.net/v1.0/search/?apikey=723f283e-9bdd-4b1e-92ac-9cda196d1e70&format=json&lang=ru&system=esr&transport_types=suburban&";
+		private const string odintsovoCode = "182209";
+		private const string belorusCode = "198230";
+		private const string begovCode = "198211";
+		private const string kursCode = "191509";
 
 		/// <summary>
 		/// Get news feed from vk api
@@ -62,14 +66,15 @@ namespace Trilistnik
 		/// Get transport feed from Yandex api
 		/// </summary>
 		/// <returns>The data</returns>
-		/// <param name="offset">Offset</param>
-		public async static Task<IEnumerable<TrainInfo>> GetTransportData()
+		public async static Task<IEnumerable<TrainInfo>> GetTransportData(string from, string to, string date)
 		{
 			try
 			{
 				using (var w = new HttpClient())
 				{
-					var resp = await w.GetStringAsync(yandexapiurl);
+					//from = 182209 & to = 198230 & page = 1 & date = 2017 - 03 - 02"
+					var yandexFinalurl = yandexapiurl + "from=" + GetCode(from) + "&to=" + GetCode(to) + "&date=" + date;
+					var resp = await w.GetStringAsync(yandexFinalurl);
 					JObject json = JObject.Parse(resp);
 					//if (offset == 0) NewsCache.CreateNewsData(json.ToString());
 					return ParseTransportData(json);
@@ -99,8 +104,20 @@ namespace Trilistnik
 				Title = train["thread"]["title"].ToString(),
 				Duration = train["duration"].ToString()
 								};
-			Console.WriteLine(trains[1]["thread"]["title"]);
 			return newsFeedLocal;
+		}
+
+		private static string GetCode(string dest)
+		{
+			switch (dest)
+			{
+				case "Белорусская": return belorusCode;
+				case "Одинцово": return odintsovoCode;
+				case "Курская": return kursCode;
+				case "Беговая": return begovCode;
+
+			}
+			return String.Empty;
 		}
 	}
 }

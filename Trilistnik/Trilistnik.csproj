@@ -197,6 +197,7 @@
     <AndroidResource Include="Resources\layout\transportfragment.axml" />
     <AndroidResource Include="Resources\layout\transport_item.axml" />
     <AndroidResource Include="Resources\drawable\listborder.xml" />
+    <AndroidResource Include="Resources\layout\spinner.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

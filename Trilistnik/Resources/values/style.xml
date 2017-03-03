@@ -10,6 +10,14 @@
     <item name="windowNoTitle">true</item>
 	</style>
 
+	<style name="spinnerItemStyle">
+    <item name="android:gravity">center</item>
+	</style>
+
+	<style name="spinnerDropDownItemStyle">
+    <item name="android:gravity">center</item>
+	</style>
+
 	<style name="mainAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="colorPrimary">#1976D2</item>
     <item name="colorPrimaryDark">#1976D2</item>
@@ -19,6 +27,10 @@
 	<item name="android:windowContentTransitions">true</item>
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+	<item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+	<item name="android:spinnerDropDownItemStyle">
+   		@style/spinnerDropDownItemStyle
+	</item>
 	</style>
 
 	<style name="progress_bar_style">
