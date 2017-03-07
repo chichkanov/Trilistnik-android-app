@@ -1,1 +1,0 @@
-<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android"><gradient android:startColor="#EEEEEE" android:centerColor="#E6E6E6" android:endColor="#EEEEEE" android:type="linear" android:angle="90"><!-- Change this value to have the correct shadow angle, must be multiple from 45 --></gradient></shape>
