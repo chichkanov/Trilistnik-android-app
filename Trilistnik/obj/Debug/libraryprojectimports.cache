@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Paths>
+  <Jars></Jars>
+  <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.CardView/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.Transition/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.RecyclerView/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.AppCompat/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.Design/library_project_imports/res</ResolvedResourceDirectory>
+  </ResolvedResourceDirectories>
+  <ResolvedAssetDirectories />
+  <ResolvedEnvironmentFiles />
+  <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.CardView.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.Transition.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.RecyclerView.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.v7.AppCompat.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/chichkanov/Projects/Trilistnik/Trilistnik/obj/Debug/__library_projects__/Xamarin.Android.Support.Design.stamp</ResolvedResourceDirectoryStamp>
+  </ResolvedResourceDirectoryStamps>
+</Paths>
