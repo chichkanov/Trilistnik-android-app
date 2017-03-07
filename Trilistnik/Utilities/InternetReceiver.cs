@@ -11,7 +11,7 @@ namespace Trilistnik
 		public event EventHandler InternetConnectionLost;
 		public event EventHandler InternetConnectionReconnect;
 
-
+		//
 		public override void OnReceive(Context context, Intent intent)
 		{
 			if (!MainActivity.checkConnection())
