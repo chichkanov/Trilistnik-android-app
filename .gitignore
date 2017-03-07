@@ -1,6 +1,7 @@
 Components
 packages
 Resource.designer.cs
+ApiKeys.cs
 bin
 obj
 *.pidb
