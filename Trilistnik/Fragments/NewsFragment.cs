@@ -85,7 +85,7 @@ namespace Trilistnik
 			try
 			{
 				newsOffset = 20;
-				var data = await JsonDataLoader.GetNewsData();
+				var data = await DataLoader.GetNewsData();
 				newsFeed = data.ToList();
 				newsAdapter = new NewsAdapter(newsFeed);
 				newsAdapter.ItemClick += NewsItemClick;
@@ -109,7 +109,7 @@ namespace Trilistnik
 		/// <returns>Array with new news</returns>
 		public async Task GetAdditionalNewsFeed()
 		{
-			var data = await JsonDataLoader.GetNewsData(newsOffset);
+			var data = await DataLoader.GetNewsData(newsOffset);
 			newsFeed.AddRange(data);
 			newsAdapter.NotifyItemInserted(newsFeed.Count);
 			newsOffset += 20;
@@ -121,7 +121,7 @@ namespace Trilistnik
 		public void GetCachedNews()
 		{
 			JObject json = JObject.Parse(NewsCache.ReadNewsData());
-			newsFeed = JsonDataLoader.ParseNewsData(json).ToList();
+			newsFeed = DataLoader.ParseNewsData(json).ToList();
 			newsAdapter = new NewsAdapter(newsFeed);
 			recyclerView.SetAdapter(newsAdapter);
 		}

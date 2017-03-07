@@ -9,10 +9,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Trilistnik
 {
-	public class JsonDataLoader
+	public class DataLoader
 	{
-		private const string vkapiurl = "https://api.vk.com/method/wall.get?v=5.50&count=20&owner_id=-33374477&filter=owner";
-		private const string yandexapiurl = "https://api.rasp.yandex.net/v1.0/search/?apikey=723f283e-9bdd-4b1e-92ac-9cda196d1e70&format=json&lang=ru&system=esr&transport_types=suburban&";
 		private const string odintsovoCode = "182209";
 		private const string belorusCode = "198230";
 		private const string begovCode = "198211";
@@ -29,7 +27,7 @@ namespace Trilistnik
 			{
 				using (var w = new HttpClient())
 				{
-					string apiUrlFinal = offset != 0 ? vkapiurl + "&offset=" + offset.ToString() : vkapiurl;
+					string apiUrlFinal = offset != 0 ? ApiKeys.vkapiurl + "&offset=" + offset.ToString() : ApiKeys.vkapiurl;
 					var resp = await w.GetStringAsync(apiUrlFinal);
 					JObject json = JObject.Parse(resp);
 					if (offset == 0) NewsCache.CreateNewsData(json.ToString());
@@ -73,7 +71,7 @@ namespace Trilistnik
 				using (var w = new HttpClient())
 				{
 					//from = 182209 & to = 198230 & page = 1 & date = 2017 - 03 - 02"
-					var yandexFinalurl = yandexapiurl + "from=" + GetCode(from) + "&to=" + GetCode(to) + "&date=" + date;
+					var yandexFinalurl = ApiKeys.yandexapiurl + "from=" + GetCode(from) + "&to=" + GetCode(to) + "&date=" + date;
 					var resp = await w.GetStringAsync(yandexFinalurl);
 					JObject json = JObject.Parse(resp);
 					//if (offset == 0) NewsCache.CreateNewsData(json.ToString());
@@ -99,10 +97,10 @@ namespace Trilistnik
 								select new TrainInfo
 								{
 									Departure = train["departure"].ToString(),
-				Arrival = train["arrival"].ToString(),
-				Stops = train["stops"].ToString(),
-				Title = train["thread"]["title"].ToString(),
-				Duration = train["duration"].ToString()
+									Arrival = train["arrival"].ToString(),
+									Stops = train["stops"].ToString(),
+									Title = train["thread"]["title"].ToString(),
+									Duration = train["duration"].ToString()
 								};
 			return newsFeedLocal;
 		}

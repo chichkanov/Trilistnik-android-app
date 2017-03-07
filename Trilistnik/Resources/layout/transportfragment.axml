@@ -13,45 +13,60 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/main_contentTransport">
-			<LinearLayout
-    			android:layout_width="match_parent"
-    			android:layout_height="wrap_content" >
-    			<Button
-       				android:id="@+id/button1"
-       				android:layout_width="wrap_content"
-       				android:layout_height="wrap_content"
-					android:layout_weight="1"
-        			android:background="#1E88E5"
-					android:textColor="#FFFFFF"
-        			android:text="Сегодня"/>
-    			<Button
-        			android:id="@+id/button2"
-        			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"
-					android:layout_weight="1"
-        			android:background="#1E88E5"
-					android:textColor="#FFFFFF"
-					android:fontFamily="sans-serif-medium"
-        			android:text="Завтра"/>
-			</LinearLayout>
-			<LinearLayout
-    			android:layout_width="match_parent"
-    			android:layout_height="wrap_content" >
-				<Spinner
-    				android:id="@+id/fromSpinner"
-   				    android:layout_width="wrap_content"
-    				android:layout_height="wrap_content"
-					android:layout_weight="1"    
-					android:background="#2196F3"
-					android:gravity="center"/>
-    			<Spinner
-    				android:id="@+id/toSpinner"
-   				    android:layout_width="wrap_content"
-    				android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:background="#2196F3"
-					android:gravity="center"/>
-			</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingLeft="40dp"
+                    android:background="#1E88E5"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/buttonTrainToday"
+                        android:layout_width="100dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/button_selector"
+                        android:textColor="#FFFFFF"
+                        android:text="Сегодня" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingRight="40dp"
+                    android:background="#1E88E5"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/buttonTrainTommorow"
+                        android:layout_width="100dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/button_selector"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Завтра" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/fromSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#2196F3"
+                    android:gravity="center" />
+                <Spinner
+                    android:id="@+id/toSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#2196F3"
+                    android:gravity="center" />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/noInternetContentTransport"
                 android:layout_width="fill_parent"

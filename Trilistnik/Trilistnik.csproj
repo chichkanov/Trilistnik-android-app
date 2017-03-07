@@ -115,13 +115,13 @@
     <Compile Include="NewsComponents\Post.cs" />
     <Compile Include="NewsComponents\XamarinRecyclerViewOnScrollListenerNews.cs" />
     <Compile Include="Utilities\InternetReceiver.cs" />
-    <Compile Include="Utilities\SettingsAdapter.cs" />
     <Compile Include="Utilities\MyWebViewClient.cs" />
     <Compile Include="Fragments\TransportFragment.cs" />
-    <Compile Include="Utilities\JsonDataLoader.cs" />
+    <Compile Include="Utilities\DataLoader.cs" />
     <Compile Include="TransportComponents\TransportAdapter.cs" />
     <Compile Include="TransportComponents\TransportViewHolder.cs" />
     <Compile Include="TransportComponents\TrainInfo.cs" />
+    <Compile Include="Utilities\ApiKeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -198,6 +198,7 @@
     <AndroidResource Include="Resources\layout\transport_item.axml" />
     <AndroidResource Include="Resources\drawable\listborder.xml" />
     <AndroidResource Include="Resources\layout\spinner.xml" />
+    <AndroidResource Include="Resources\drawable\button_selector.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

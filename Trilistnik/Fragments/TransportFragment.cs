@@ -30,6 +30,7 @@ namespace Trilistnik
 		private ViewGroup root;
 		private Spinner fromSpinner, toSpinner;
 		private string currentFromStation, currentToStation;
+		private Button todayButton, tommorowButton;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
@@ -41,7 +42,6 @@ namespace Trilistnik
 			base.OnActivityCreated(savedInstanceState);
 			if (MainActivity.isOnline)
 			{
-				refresher.Refreshing = true;
 				await GetStartTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
 			}
 		}
@@ -51,6 +51,8 @@ namespace Trilistnik
 			root = (ViewGroup)inflater.Inflate(Resource.Layout.transportfragment, null);
 
 			noInternetLayout = root.FindViewById<LinearLayout>(Resource.Id.noInternetContentTransport);
+			todayButton = root.FindViewById<Button>(Resource.Id.buttonTrainToday);
+			tommorowButton = root.FindViewById<Button>(Resource.Id.buttonTrainTommorow);
 			fromSpinner = root.FindViewById<Spinner>(Resource.Id.fromSpinner);
 			toSpinner = root.FindViewById<Spinner>(Resource.Id.toSpinner);
 
@@ -66,37 +68,12 @@ namespace Trilistnik
 			currentFromStation = fromSpinner.SelectedItem.ToString();
 			currentToStation = toSpinner.SelectedItem.ToString();
 
-			fromSpinner.ItemSelected += async (sender, e) =>
-			{
-				if (fromSpinner.SelectedItem.ToString() != currentFromStation)
-				{
-					if (fromSpinner.SelectedItem.ToString() != currentToStation)
-					{
-						currentFromStation = fromSpinner.SelectedItem.ToString();
-						await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
-					}
-					else 
-					{
-						Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
-					}
-				}
-			};
+			fromSpinner.ItemSelected += FromStationSelected;
+			toSpinner.ItemSelected += ToStationSelected;
 
-			toSpinner.ItemSelected += async (sender, e) =>
-			{
-				if (toSpinner.SelectedItem.ToString() != currentToStation)
-				{
-					if (toSpinner.SelectedItem.ToString() != currentFromStation)
-					{
-						currentToStation = toSpinner.SelectedItem.ToString();
-						await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
-					}
-					else
-					{
-						Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
-					}
-				}
-			};
+			todayButton.Selected = true;
+			todayButton.Click += TodayButtonClick;
+			tommorowButton.Click += TommorowButtonClick;
 
 			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerViewTransport);
 			recyclerView.HasFixedSize = true;
@@ -122,7 +99,8 @@ namespace Trilistnik
 		{
 			try
 			{
-				var data = await JsonDataLoader.GetTransportData(from, to, date);
+				refresher.Refreshing = true;
+				var data = await DataLoader.GetTransportData(from, to, date);
 				transportFeed = data.ToList();
 				transportAdapter = new TransportAdapter(transportFeed);
 				recyclerView.SetAdapter(transportAdapter);
@@ -148,7 +126,7 @@ namespace Trilistnik
 			try
 			{
 				refresher.Refreshing = true;
-				var data = await JsonDataLoader.GetTransportData(from, to, date);
+				var data = await DataLoader.GetTransportData(from, to, date);
 				transportFeed.Clear();
 				transportFeed.AddRange(data);
 				transportAdapter.NotifyDataSetChanged();
@@ -180,5 +158,64 @@ namespace Trilistnik
 			}
 		}
 
+		public async void FromStationSelected(Object sender, EventArgs e)
+		{
+			if (fromSpinner.SelectedItem.ToString() != currentFromStation)
+			{
+				if (fromSpinner.SelectedItem.ToString() != currentToStation)
+				{
+					currentFromStation = fromSpinner.SelectedItem.ToString();
+					if(todayButton.Selected)await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+					else await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+
+				}
+				else
+				{
+					Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
+				}
+			}
+		}
+
+		public async void ToStationSelected(Object sender, EventArgs e)
+		{
+			if (toSpinner.SelectedItem.ToString() != currentToStation)
+			{
+				if (toSpinner.SelectedItem.ToString() != currentFromStation)
+				{
+					currentToStation = toSpinner.SelectedItem.ToString();
+					if(todayButton.Selected) await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+					else await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+
+				}
+				else
+				{
+					Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
+				}
+			}
+		}
+
+		public async void TodayButtonClick(Object sender, EventArgs e)
+		{
+			if (tommorowButton.Selected)
+			{
+				refresher.Refreshing = true;
+				todayButton.Selected = true;
+				tommorowButton.Selected = false;
+				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+				refresher.Refreshing = false;
+			}
+		}
+
+		public async void TommorowButtonClick(Object sender, EventArgs e)
+		{
+			if (todayButton.Selected)
+			{
+				refresher.Refreshing = true;
+				todayButton.Selected = false;
+				tommorowButton.Selected = true;
+				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+				refresher.Refreshing = false;
+			}
+		}
 	}
 }
