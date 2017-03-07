@@ -121,7 +121,6 @@
     <Compile Include="TransportComponents\TransportAdapter.cs" />
     <Compile Include="TransportComponents\TransportViewHolder.cs" />
     <Compile Include="TransportComponents\TrainInfo.cs" />
-    <Compile Include="Utilities\ApiKeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
