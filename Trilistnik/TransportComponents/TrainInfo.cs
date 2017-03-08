@@ -8,6 +8,7 @@ namespace Trilistnik
 		public string Duration { get; set; }
 		public string Title { get; set; }
 		public string Stops { get; set; }
+		public string Express { get; set; }
 
 	}
 }

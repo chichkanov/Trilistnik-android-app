@@ -33,6 +33,15 @@ namespace Trilistnik
 			transportViewHolder.Duration.Text = duration;
 			transportViewHolder.Stops.Text = transportFeed[position].Stops;
 			transportViewHolder.Title.Text = transportFeed[position].Title;
+			if (transportFeed[position].Express != String.Empty)
+			{
+				transportViewHolder.IsExpress.Visibility = ViewStates.Visible;
+				transportViewHolder.IsExpress.Text = "Экспресс";
+			}
+			else {
+				transportViewHolder.IsExpress.Visibility = ViewStates.Gone;
+
+			}
 
 			int curDate = int.Parse(DateTime.Now.ToString("HH:mm").Substring(0, 2) + DateTime.Now.ToString("HH:mm").Substring(3));
 			int trainDate = int.Parse(departureText.Substring(0, 2) + departureText.Substring(3));

@@ -32,6 +32,7 @@ namespace Trilistnik
 		private Spinner fromSpinner, toSpinner;
 		private string currentFromStation, currentToStation;
 		private Button todayButton, tommorowButton;
+		private LinearLayoutManager layoutManager;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
@@ -86,7 +87,7 @@ namespace Trilistnik
 			refresher = root.FindViewById<SwipeRefreshLayout>(Resource.Id.refresherTransport);
 			refresher.Refresh += HandleRefresh;
 
-			var layoutManager = new LinearLayoutManager(Activity);
+			layoutManager = new LinearLayoutManager(Activity);
 			//var onScrollListener = new XamarinRecyclerViewOnScrollListenerNews(layoutManager);
 			//onScrollListener.LoadMoreEvent += LoadMore;
 			//recyclerView.AddOnScrollListener(onScrollListener);
@@ -134,7 +135,10 @@ namespace Trilistnik
 				transportFeed.Clear();
 				transportFeed.AddRange(data);
 				transportAdapter.NotifyDataSetChanged();
-				if (!tommorowButton.Selected) recyclerView.ScrollToPosition(GetNearestTime());
+				if (!tommorowButton.Selected)
+				{
+					layoutManager.ScrollToPositionWithOffset(GetNearestTime(), 0);
+				}
 				refresher.Refreshing = false;
 			}
 			catch (System.ArgumentNullException)

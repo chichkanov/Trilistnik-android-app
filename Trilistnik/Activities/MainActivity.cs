@@ -29,12 +29,14 @@ namespace Trilistnik
 		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
+		public static Prefs prefs;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			SetTheme(Resource.Style.mainAppTheme);
 			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.Main);
+
 
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
@@ -48,6 +50,7 @@ namespace Trilistnik
 			internetReceiver.InternetConnectionReconnect += (sender, e) => isOnline = true;
 
 			context = Application.Context;
+			prefs = new Prefs(context);
 			newsFragment = new NewsFragment();
 
 			toolbar.Title = "Новости";

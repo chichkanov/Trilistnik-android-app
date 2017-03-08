@@ -103,7 +103,8 @@ namespace Trilistnik
 									Arrival = train["arrival"].ToString(),
 									Stops = train["stops"].ToString(),
 									Title = train["thread"]["title"].ToString(),
-									Duration = train["duration"].ToString()
+									Duration = train["duration"].ToString(),
+									Express = train["thread"]["express_type"].ToString()
 								};
 			return newsFeedLocal;
 		}
