@@ -7,6 +7,7 @@ namespace Trilistnik
 {
 	public class TransportViewHolder : RecyclerView.ViewHolder
 	{
+		public LinearLayout ll;
 		public TextView Arrival { get; set; }
 		public TextView Departure { get; set; }
 		public TextView Duration { get; set; }
@@ -21,6 +22,7 @@ namespace Trilistnik
 			Duration = itemView.FindViewById<TextView>(Resource.Id.transportDuration);
 			Title = itemView.FindViewById<TextView>(Resource.Id.transportTitle);
 			Stops = itemView.FindViewById<TextView>(Resource.Id.transportStops);
+			ll = itemView.FindViewById<LinearLayout>(Resource.Id.transportFeedContent);
 		}
 	}
 }

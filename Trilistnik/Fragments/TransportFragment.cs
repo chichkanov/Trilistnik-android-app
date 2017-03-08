@@ -91,8 +91,6 @@ namespace Trilistnik
 			//onScrollListener.LoadMoreEvent += LoadMore;
 			//recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
-
-
 			return root;
 		}
 
@@ -109,6 +107,7 @@ namespace Trilistnik
 				transportFeed = data.ToList();
 				transportAdapter = new TransportAdapter(transportFeed);
 				recyclerView.SetAdapter(transportAdapter);
+				if (!tommorowButton.Selected) recyclerView.ScrollToPosition(GetNearestTime());
 				refresher.Refreshing = false;
 				if (MainActivity.isOnline && noInternetLayout.Visibility == ViewStates.Visible)
 				{
@@ -135,6 +134,7 @@ namespace Trilistnik
 				transportFeed.Clear();
 				transportFeed.AddRange(data);
 				transportAdapter.NotifyDataSetChanged();
+				if (!tommorowButton.Selected) recyclerView.ScrollToPosition(GetNearestTime());
 				refresher.Refreshing = false;
 			}
 			catch (System.ArgumentNullException)
@@ -229,8 +229,6 @@ namespace Trilistnik
 		{
 			if (currentToStation != currentFromStation)
 			{
-				Console.WriteLine(currentToStation + " " + currentFromStation);
-
 				refresher.Refreshing = true;
 				int fromIndex = fromSpinner.SelectedItemPosition;
 				fromSpinner.SetSelection(toSpinner.SelectedItemPosition);
@@ -251,6 +249,26 @@ namespace Trilistnik
 			{
 				Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
 			}
+		}
+
+		private int GetNearestTime()
+		{
+			int position = 0;
+			int curDate = int.Parse(DateTime.Now.ToString("HH:mm").Substring(0,2) + DateTime.Now.ToString("HH:mm").Substring(3));
+
+			for (int i = 0; i < transportFeed.Count; i++)
+			{
+				string departureText = transportFeed[i].Departure.Split(' ')[1].Substring(0, 5);
+
+				int trainDate = int.Parse(departureText.Substring(0, 2) + departureText.Substring(3));
+				if (trainDate >= curDate)
+				{
+					position = i;
+					break;
+				}
+			}
+
+			return position;
 		}
 	}
 }
