@@ -20,9 +20,13 @@ namespace Trilistnik
 		public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
 		{
 			var transportViewHolder = (TransportViewHolder)holder;
-			transportViewHolder.Arrival.Text = transportFeed[position].Arrival;
-			transportViewHolder.Departure.Text = transportFeed[position].Departure;
-			transportViewHolder.Duration.Text = transportFeed[position].Duration;
+			string arrivalText = transportFeed[position].Arrival.Split(' ')[1].Substring(0, 5);
+			string departureText = transportFeed[position].Departure.Split(' ')[1].Substring(0, 5);
+			string duration = "В пути: " + (int.Parse(transportFeed[position].Duration) / 60).ToString() + " минут";
+
+			transportViewHolder.Arrival.Text = arrivalText;
+			transportViewHolder.Departure.Text = departureText;
+			transportViewHolder.Duration.Text = duration;
 			transportViewHolder.Stops.Text = transportFeed[position].Stops;
 			transportViewHolder.Title.Text = transportFeed[position].Title;
 		}

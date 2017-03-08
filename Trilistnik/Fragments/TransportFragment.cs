@@ -27,6 +27,7 @@ namespace Trilistnik
 		private LinearLayout noInternetLayout;
 		private SwipeRefreshLayout refresher;
 		private Button noInternetButton;
+		private ImageButton switchTrainButton;
 		private ViewGroup root;
 		private Spinner fromSpinner, toSpinner;
 		private string currentFromStation, currentToStation;
@@ -55,21 +56,25 @@ namespace Trilistnik
 			tommorowButton = root.FindViewById<Button>(Resource.Id.buttonTrainTommorow);
 			fromSpinner = root.FindViewById<Spinner>(Resource.Id.fromSpinner);
 			toSpinner = root.FindViewById<Spinner>(Resource.Id.toSpinner);
+			switchTrainButton = root.FindViewById<ImageButton>(Resource.Id.buttonSwitchTrain);
 
-			var adapterFrom = ArrayAdapter.CreateFromResource(MainActivity.context, Resource.Array.fromArray, Resource.Layout.spinner);
+			var adapterFrom = ArrayAdapter.CreateFromResource(MainActivity.context, Resource.Array.trainArray, Resource.Layout.spinner);
 			adapterFrom.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 
-			var adapterTo = ArrayAdapter.CreateFromResource(MainActivity.context, Resource.Array.toArray, Resource.Layout.spinner);
+			var adapterTo = ArrayAdapter.CreateFromResource(MainActivity.context, Resource.Array.trainArray, Resource.Layout.spinner);
 			adapterTo.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 
 			fromSpinner.Adapter = adapterFrom;
 			toSpinner.Adapter = adapterTo;
+			fromSpinner.SetSelection(0);
+			toSpinner.SetSelection(5);
 
 			currentFromStation = fromSpinner.SelectedItem.ToString();
 			currentToStation = toSpinner.SelectedItem.ToString();
 
 			fromSpinner.ItemSelected += FromStationSelected;
 			toSpinner.ItemSelected += ToStationSelected;
+			switchTrainButton.Click += SwitchTrains;
 
 			todayButton.Selected = true;
 			todayButton.Click += TodayButtonClick;
@@ -172,6 +177,7 @@ namespace Trilistnik
 				else
 				{
 					Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
+					currentFromStation = fromSpinner.SelectedItem.ToString();
 				}
 			}
 		}
@@ -190,6 +196,7 @@ namespace Trilistnik
 				else
 				{
 					Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
+					currentToStation = toSpinner.SelectedItem.ToString();
 				}
 			}
 		}
@@ -215,6 +222,34 @@ namespace Trilistnik
 				tommorowButton.Selected = true;
 				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
 				refresher.Refreshing = false;
+			}
+		}
+
+		public async void SwitchTrains(Object sender, EventArgs e)
+		{
+			if (currentToStation != currentFromStation)
+			{
+				Console.WriteLine(currentToStation + " " + currentFromStation);
+
+				refresher.Refreshing = true;
+				int fromIndex = fromSpinner.SelectedItemPosition;
+				fromSpinner.SetSelection(toSpinner.SelectedItemPosition);
+				toSpinner.SetSelection(fromIndex);
+				currentToStation = toSpinner.SelectedItem.ToString();
+				currentFromStation = fromSpinner.SelectedItem.ToString();
+				if (todayButton.Selected)
+				{
+					await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+				}
+				else 
+				{
+					await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
+				}
+				refresher.Refreshing = false;
+			}
+			else 
+			{
+				Toast.MakeText(MainActivity.context, "Выберите другую станцию!", ToastLength.Short).Show();
 			}
 		}
 	}

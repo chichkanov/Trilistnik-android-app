@@ -14,7 +14,10 @@ namespace Trilistnik
 		private const string odintsovoCode = "182209";
 		private const string belorusCode = "198230";
 		private const string begovCode = "198211";
-		private const string kursCode = "191509";
+		private const string kuncCode = "181704";
+		private const string filiCode = "181600";
+		private const string testovCode = "198226";
+
 
 		/// <summary>
 		/// Get news feed from vk api
@@ -111,8 +114,10 @@ namespace Trilistnik
 			{
 				case "Белорусская": return belorusCode;
 				case "Одинцово": return odintsovoCode;
-				case "Курская": return kursCode;
 				case "Беговая": return begovCode;
+				case "Кунцево": return kuncCode;
+				case "Фили": return filiCode;
+				case "Тестовская": return testovCode;
 
 			}
 			return String.Empty;

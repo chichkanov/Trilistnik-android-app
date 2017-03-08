@@ -2,17 +2,12 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Трилистник</string>
-	<string-array name="fromArray">
+	<string-array name="trainArray">
         <item>Одинцово</item>
-        <item>Курская</item>
-        <item>Белорусская</item>
+        <item>Кунцево</item>
+        <item>Фили</item>
+		<item>Тестовская</item>
         <item>Беговая</item>
-    </string-array>
-
-	<string-array name="toArray">
-        <item>Курская</item>
-        <item>Одинцово</item>
-        <item>Белорусская</item>
-        <item>Беговая</item>
+		<item>Белорусская</item>
     </string-array>
 </resources>

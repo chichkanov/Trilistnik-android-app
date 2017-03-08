@@ -59,6 +59,12 @@
                     android:layout_weight="1"
                     android:background="#2196F3"
                     android:gravity="center" />
+                <ImageButton
+                    android:id="@+id/buttonSwitchTrain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/ic_swap"
+					android:background="#2196F3"/>
                 <Spinner
                     android:id="@+id/toSpinner"
                     android:layout_width="wrap_content"

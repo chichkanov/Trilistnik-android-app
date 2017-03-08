@@ -199,6 +199,11 @@
     <AndroidResource Include="Resources\drawable\listborder.xml" />
     <AndroidResource Include="Resources\layout\spinner.xml" />
     <AndroidResource Include="Resources\drawable\button_selector.xml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_swap.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_swap.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_swap.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_swap.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_swap.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
