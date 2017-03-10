@@ -42,6 +42,15 @@ namespace Trilistnik
 				transportViewHolder.IsExpress.Visibility = ViewStates.Gone;
 
 			}
+			if (transportFeed[position].StandartPlus != String.Empty)
+			{
+				transportViewHolder.IsStandartPlus.Visibility = ViewStates.Visible;
+				transportViewHolder.IsStandartPlus.Text = "Стандарт плюс";
+			}
+			else {
+				transportViewHolder.IsStandartPlus.Visibility = ViewStates.Gone;
+
+			}
 
 			int curDate = int.Parse(DateTime.Now.ToString("HH:mm").Substring(0, 2) + DateTime.Now.ToString("HH:mm").Substring(3));
 			int trainDate = int.Parse(departureText.Substring(0, 2) + departureText.Substring(3));

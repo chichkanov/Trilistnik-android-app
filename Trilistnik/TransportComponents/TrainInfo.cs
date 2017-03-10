@@ -9,6 +9,7 @@ namespace Trilistnik
 		public string Title { get; set; }
 		public string Stops { get; set; }
 		public string Express { get; set; }
+		public string StandartPlus { get; set; }
 
 	}
 }

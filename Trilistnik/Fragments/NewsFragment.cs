@@ -177,9 +177,8 @@ namespace Trilistnik
 
 		private void NewsItemClick(object sender, int position)
 		{
-			Log.Debug("dasdasd", position.ToString());
 			var newsPostIntent = new Intent(MainActivity.context, typeof(NewsPost));
-			newsPostIntent.PutExtra("newsText", root.FindViewById<TextView>(Resource.Id.newsText).Text);
+			newsPostIntent.PutExtra("newsText", newsFeed[position].Text);
 			ActivityOptions activityOptions = ActivityOptions.MakeSceneTransitionAnimation(
 				Activity,
 				new Pair(root.FindViewById(Resource.Id.newsText), NewsPost.VIEW_NAME_NEWS_TEXT),

@@ -17,7 +17,11 @@ namespace Trilistnik
 		private const string kuncCode = "181704";
 		private const string filiCode = "181600";
 		private const string testovCode = "198226";
-
+		// Line by line different stations
+		// TODO add different stations
+		private readonly static HashSet<string> standartPlusNumbers = new HashSet<string> {"6202", "6002/6001", "6402", "6210", "6324", "6304",
+		"6218", "6224", "6404", "6610", "6612", "6330", "6030/6029", "6246", "6622", "6624", "6314", "6510", "6334", "6266", "6512"
+		};
 
 		/// <summary>
 		/// Get news feed from vk api
@@ -73,11 +77,9 @@ namespace Trilistnik
 			{
 				using (var w = new HttpClient())
 				{
-					//from = 182209 & to = 198230 & page = 1 & date = 2017 - 03 - 02"
 					var yandexFinalurl = ApiKeys.yandexapiurl + "from=" + GetCode(from) + "&to=" + GetCode(to) + "&date=" + date;
 					var resp = await w.GetStringAsync(yandexFinalurl);
 					JObject json = JObject.Parse(resp);
-					//if (offset == 0) NewsCache.CreateNewsData(json.ToString());
 					return ParseTransportData(json);
 				}
 			}
@@ -104,11 +106,18 @@ namespace Trilistnik
 									Stops = train["stops"].ToString(),
 									Title = train["thread"]["title"].ToString(),
 									Duration = train["duration"].ToString(),
-									Express = train["thread"]["express_type"].ToString()
+									Express = train["thread"]["express_type"].ToString(),
+				                    StandartPlus = GetStandartPlus(train["thread"]["number"].ToString())
+
 								};
 			return newsFeedLocal;
 		}
 
+		/// <summary>
+		/// Get station code
+		/// </summary>
+		/// <returns>The code.</returns>
+		/// <param name="dest">Destination.</param>
 		private static string GetCode(string dest)
 		{
 			switch (dest)
@@ -121,6 +130,12 @@ namespace Trilistnik
 				case "Тестовская": return testovCode;
 
 			}
+			return String.Empty;
+		}
+
+		private static string GetStandartPlus(string trainNumber)
+		{
+			if (standartPlusNumbers.Contains(trainNumber)) return "Стандарт плюс";
 			return String.Empty;
 		}
 	}

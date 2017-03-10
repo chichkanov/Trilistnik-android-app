@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <LinearLayout
-			android:id="@+id/transportFeedContent"
+            android:id="@+id/transportFeedContent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -51,17 +51,26 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:textColor="#43A047"
+                android:text=""
+                android:visibility="gone"
+                android:id="@+id/transportStandartPlus"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
                 android:textColor="#333333"
                 android:text=""
                 android:id="@+id/transportTitle"
                 android:layout_gravity="center_horizontal" />
-			<TextView
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="#FF6D00"
                 android:text=""
-				android:visibility="gone"
+                android:visibility="gone"
                 android:id="@+id/transportExpress"
                 android:layout_gravity="center_horizontal" />
             <TextView

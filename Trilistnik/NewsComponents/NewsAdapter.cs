@@ -28,11 +28,11 @@ namespace Trilistnik
 			{
 				Glide.With(newsViewHolder.NewsImg.Context).Load(newsFeed[position].Img).FitCenter()
 					 .Placeholder(Resource.Drawable.empty)
-				     .DiskCacheStrategy(DiskCacheStrategy.All)
-				     .Into(newsViewHolder.NewsImg);
+					 .DiskCacheStrategy(DiskCacheStrategy.All)
+					 .Into(newsViewHolder.NewsImg);
 			}
 			else {
-				newsViewHolder.NewsImg.SetImageDrawable(null);
+				newsViewHolder.NewsImg.Visibility = ViewStates.Gone;
 			}
 		}
 
