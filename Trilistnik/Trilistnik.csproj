@@ -134,7 +134,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\Main.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
@@ -145,8 +145,8 @@
     <AndroidResource Include="Resources\values\theme.xml" />
     <AndroidResource Include="Resources\drawable\splash_centered.xml" />
     <AndroidResource Include="Resources\menu\nav_menu.xml" />
-    <AndroidResource Include="Resources\layout\toolbar.axml" />
-    <AndroidResource Include="Resources\menu\drawer_layout.axml" />
+    <AndroidResource Include="Resources\layout\toolbar.xml" />
+    <AndroidResource Include="Resources\menu\drawer_layout.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_menu.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_menu.png" />
@@ -158,13 +158,13 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo_text.png" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo_droid.png" />
-    <AndroidResource Include="Resources\layout\payfragment.axml" />
-    <AndroidResource Include="Resources\layout\settingsfragment.axml" />
-    <AndroidResource Include="Resources\layout\newsfragment.axml" />
-    <AndroidResource Include="Resources\layout\fixfragment.axml" />
+    <AndroidResource Include="Resources\layout\payfragment.xml" />
+    <AndroidResource Include="Resources\layout\settingsfragment.xml" />
+    <AndroidResource Include="Resources\layout\newsfragment.xml" />
+    <AndroidResource Include="Resources\layout\fixfragment.xml" />
     <AndroidResource Include="Resources\layout\fragmentNoInternet.xml" />
     <AndroidResource Include="Resources\drawable\cat_slippers.png" />
-    <AndroidResource Include="Resources\layout\news_item.axml" />
+    <AndroidResource Include="Resources\layout\news_item.xml" />
     <AndroidResource Include="Resources\values\color.xml" />
     <AndroidResource Include="Resources\anim\enter.xml" />
     <AndroidResource Include="Resources\anim\exit.xml" />
@@ -172,7 +172,7 @@
     <AndroidResource Include="Resources\drawable\gradient_top.xml" />
     <AndroidResource Include="Resources\drawable\gradient_bottom.xml" />
     <AndroidResource Include="Resources\drawable\background_shadow.xml" />
-    <AndroidResource Include="Resources\layout\NewsPost.axml" />
+    <AndroidResource Include="Resources\layout\NewsPost.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_home_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_home_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home_black_24dp.png" />
@@ -198,8 +198,8 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_payment_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_train_black_24dp.png" />
-    <AndroidResource Include="Resources\layout\transportfragment.axml" />
-    <AndroidResource Include="Resources\layout\transport_item.axml" />
+    <AndroidResource Include="Resources\layout\transportfragment.xml" />
+    <AndroidResource Include="Resources\layout\transport_item.xml" />
     <AndroidResource Include="Resources\drawable\listborder.xml" />
     <AndroidResource Include="Resources\layout\spinner.xml" />
     <AndroidResource Include="Resources\drawable\button_selector.xml" />

@@ -27,7 +27,6 @@ namespace Trilistnik
 			ll = itemView.FindViewById<LinearLayout>(Resource.Id.transportFeedContent);
 			IsExpress = itemView.FindViewById<TextView>(Resource.Id.transportExpress);
 			IsStandartPlus = itemView.FindViewById<TextView>(Resource.Id.transportStandartPlus);
-
 		}
 	}
 }
