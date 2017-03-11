@@ -30,8 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+		android:fitsSystemWindows="true"
+	    android:background="#FAFAFA"
         android:id="@+id/nav_view"
-        app:menu="@menu/nav_menu"/>
-		 <!-- Maybe add later to the upper view ??? app:headerLayout="@layout/nav_header" -->
+        app:menu="@menu/nav_menu"
+		app:headerLayout="@layout/nav_header"/>
 
 </android.support.v4.widget.DrawerLayout>

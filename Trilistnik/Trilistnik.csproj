@@ -146,7 +146,6 @@
     <AndroidResource Include="Resources\drawable\splash_centered.xml" />
     <AndroidResource Include="Resources\menu\nav_menu.xml" />
     <AndroidResource Include="Resources\layout\toolbar.xml" />
-    <AndroidResource Include="Resources\menu\drawer_layout.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_menu.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_menu.png" />
@@ -209,6 +208,11 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_swap.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_swap.png" />
     <AndroidResource Include="Resources\xml\preferences.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_local_library_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_local_library_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_local_library_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_local_library_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_local_library_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

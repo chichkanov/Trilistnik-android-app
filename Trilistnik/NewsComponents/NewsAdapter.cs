@@ -26,6 +26,7 @@ namespace Trilistnik
 			newsViewHolder.NewsDate.Text = DateTimeOffset.FromUnixTimeSeconds(long.Parse(newsFeed[position].Date)).LocalDateTime.ToString();
 			if (newsFeed[position].Img != null)
 			{
+				newsViewHolder.NewsImg.Visibility = ViewStates.Visible;
 				Glide.With(newsViewHolder.NewsImg.Context).Load(newsFeed[position].Img).FitCenter()
 					 .Placeholder(Resource.Drawable.empty)
 					 .DiskCacheStrategy(DiskCacheStrategy.All)
