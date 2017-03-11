@@ -33,6 +33,7 @@ namespace Trilistnik
 		private string currentFromStation, currentToStation;
 		private Button todayButton, tommorowButton;
 		private LinearLayoutManager layoutManager;
+		private ProgressBar loadingSpinner;
 
 		public override void OnCreate(Bundle savedInstanceState)
 		{
@@ -58,6 +59,7 @@ namespace Trilistnik
 			fromSpinner = root.FindViewById<Spinner>(Resource.Id.fromSpinner);
 			toSpinner = root.FindViewById<Spinner>(Resource.Id.toSpinner);
 			switchTrainButton = root.FindViewById<ImageButton>(Resource.Id.buttonSwitchTrain);
+			loadingSpinner = root.FindViewById<ProgressBar>(Resource.Id.loading_spinnerTransport);
 
 			var adapterFrom = ArrayAdapter.CreateFromResource(MainActivity.context, Resource.Array.trainArray, Resource.Layout.spinner);
 			adapterFrom.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
@@ -92,6 +94,8 @@ namespace Trilistnik
 			//onScrollListener.LoadMoreEvent += LoadMore;
 			//recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
+			transportAdapter = new TransportAdapter(transportFeed); 
+			recyclerView.SetAdapter(transportAdapter);
 			return root;
 		}
 
@@ -103,19 +107,21 @@ namespace Trilistnik
 		{
 			try
 			{
-				refresher.Refreshing = true;
+				loadingSpinner.Visibility = ViewStates.Visible;
 				var data = await DataLoader.GetTransportData(from, to, date);
-				transportFeed = data.ToList();
-				transportAdapter = new TransportAdapter(transportFeed);
-				recyclerView.SetAdapter(transportAdapter);
+				transportFeed.AddRange(data);
+				transportAdapter.NotifyDataSetChanged();
 				if (!tommorowButton.Selected) recyclerView.ScrollToPosition(GetNearestTime());
 				refresher.Refreshing = false;
 				if (MainActivity.isOnline && noInternetLayout.Visibility == ViewStates.Visible)
 				{
 					noInternetLayout.Visibility = ViewStates.Gone;
 				}
+				refresher.Refreshing = false;
+				loadingSpinner.Visibility = ViewStates.Gone;
+
 			}
-			catch (System.ArgumentNullException)
+			catch (System.Net.Http.HttpRequestException)
 			{
 				refresher.Refreshing = false;
 				//ShowNoInternetNofitication(root);
@@ -130,7 +136,8 @@ namespace Trilistnik
 		{
 			try
 			{
-				refresher.Refreshing = true;
+				loadingSpinner.Visibility = ViewStates.Visible;
+				recyclerView.Visibility = ViewStates.Gone;
 				var data = await DataLoader.GetTransportData(from, to, date);
 				transportFeed.Clear();
 				transportFeed.AddRange(data);
@@ -140,8 +147,11 @@ namespace Trilistnik
 					layoutManager.ScrollToPositionWithOffset(GetNearestTime(), 0);
 				}
 				refresher.Refreshing = false;
+				loadingSpinner.Visibility = ViewStates.Gone;
+				recyclerView.Visibility = ViewStates.Visible;
+
 			}
-			catch (System.ArgumentNullException)
+			catch (System.Net.Http.HttpRequestException)
 			{
 				refresher.Refreshing = false;
 				//ShowNoInternetNofitication(root);
@@ -158,11 +168,13 @@ namespace Trilistnik
 		{
 			if (MainActivity.isOnline)
 			{
-				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+				refresher.Refreshing = true;
+				if (todayButton.Selected) await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+				else await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
 			}
 			else
 			{
-				Toast.MakeText(MainActivity.context, "Для загрузки новостей ребуется интернет соединение", ToastLength.Short).Show();
+				Toast.MakeText(MainActivity.context, "Для загрузки расписания ребуется интернет соединение", ToastLength.Short).Show();
 				refresher.Refreshing = false;
 			}
 		}

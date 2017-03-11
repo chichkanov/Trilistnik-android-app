@@ -67,6 +67,9 @@ namespace Trilistnik
 
 			if(NewsCache.IsExist())GetCachedNews();
 
+			newsAdapter = new NewsAdapter(newsFeed);
+			recyclerView.SetAdapter(newsAdapter);
+
 			if (!NewsCache.IsExist() && !MainActivity.isOnline)
 			{
 				ShowNoInternetNofitication(root);
@@ -86,17 +89,16 @@ namespace Trilistnik
 			{
 				newsOffset = 20;
 				var data = await DataLoader.GetNewsData();
-				newsFeed = data.ToList();
-				newsAdapter = new NewsAdapter(newsFeed);
+				newsFeed.AddRange(data);
+				newsAdapter.NotifyDataSetChanged();
 				newsAdapter.ItemClick += NewsItemClick;
-				recyclerView.SetAdapter(newsAdapter);
 				refresher.Refreshing = false;
 				if (MainActivity.isOnline && noInternetLayout.Visibility == ViewStates.Visible)
 				{
 					noInternetLayout.Visibility = ViewStates.Gone;
 				}
 			}
-			catch (System.ArgumentNullException)
+			catch (System.Net.Http.HttpRequestException)
 			{
 				refresher.Refreshing = false;
 				ShowNoInternetNofitication(root);
