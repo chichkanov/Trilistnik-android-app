@@ -90,12 +90,15 @@ namespace Trilistnik
 			refresher.Refresh += HandleRefresh;
 
 			layoutManager = new LinearLayoutManager(Activity);
-			//var onScrollListener = new XamarinRecyclerViewOnScrollListenerNews(layoutManager);
-			//onScrollListener.LoadMoreEvent += LoadMore;
-			//recyclerView.AddOnScrollListener(onScrollListener);
 			recyclerView.SetLayoutManager(layoutManager);
 			transportAdapter = new TransportAdapter(transportFeed); 
 			recyclerView.SetAdapter(transportAdapter);
+
+			if (!MainActivity.isOnline)
+			{
+				ShowNoInternetNofitication();
+			}
+
 			return root;
 		}
 
@@ -124,7 +127,8 @@ namespace Trilistnik
 			catch (System.Net.Http.HttpRequestException)
 			{
 				refresher.Refreshing = false;
-				//ShowNoInternetNofitication(root);
+				loadingSpinner.Visibility = ViewStates.Gone;
+				ShowNoInternetNofitication();
 			}
 		}
 
@@ -154,7 +158,8 @@ namespace Trilistnik
 			catch (System.Net.Http.HttpRequestException)
 			{
 				refresher.Refreshing = false;
-				//ShowNoInternetNofitication(root);
+				loadingSpinner.Visibility = ViewStates.Gone;
+				ShowNoInternetNofitication();
 			}
 		}
 
@@ -280,5 +285,30 @@ namespace Trilistnik
 
 			return position;
 		}
+
+		//TODO FIX CONTENT HIDE WHEN OPEN WITH INTERNET SWITCH STATION AND PRESS UPDATE
+		/// <summary>
+		/// Show ui according to internet connection
+		/// </summary>
+		private void ShowNoInternetNofitication()
+		{
+			noInternetLayout.Visibility = ViewStates.Visible;
+			for (int i = 0; i < noInternetLayout.ChildCount; i++)
+			{
+				noInternetLayout.GetChildAt(i).Visibility = ViewStates.Visible;
+			}
+			noInternetButton = root.FindViewById<Button>(Resource.Id.buttonRepeatConnectionTransport);
+			noInternetButton.Click += async (sender, e) =>
+			{
+				if (MainActivity.isOnline)
+				{
+					noInternetLayout.Visibility = ViewStates.Gone;
+					loadingSpinner.Visibility = ViewStates.Visible;
+					await GetStartTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+					loadingSpinner.Visibility = ViewStates.Gone;
+				}
+			};
+		}
+
 	}
 }
