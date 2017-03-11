@@ -221,11 +221,9 @@ namespace Trilistnik
 		{
 			if (tommorowButton.Selected)
 			{
-				refresher.Refreshing = true;
 				todayButton.Selected = true;
 				tommorowButton.Selected = false;
 				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
-				refresher.Refreshing = false;
 			}
 		}
 
@@ -233,11 +231,9 @@ namespace Trilistnik
 		{
 			if (todayButton.Selected)
 			{
-				refresher.Refreshing = true;
 				todayButton.Selected = false;
 				tommorowButton.Selected = true;
 				await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
-				refresher.Refreshing = false;
 			}
 		}
 
@@ -245,7 +241,6 @@ namespace Trilistnik
 		{
 			if (currentToStation != currentFromStation)
 			{
-				refresher.Refreshing = true;
 				int fromIndex = fromSpinner.SelectedItemPosition;
 				fromSpinner.SetSelection(toSpinner.SelectedItemPosition);
 				toSpinner.SetSelection(fromIndex);
@@ -259,7 +254,6 @@ namespace Trilistnik
 				{
 					await GetAdditionalTransportFeed(currentFromStation, currentToStation, DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"));
 				}
-				refresher.Refreshing = false;
 			}
 			else 
 			{
