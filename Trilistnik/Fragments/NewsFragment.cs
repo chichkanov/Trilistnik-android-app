@@ -89,6 +89,7 @@ namespace Trilistnik
 			{
 				newsOffset = 20;
 				var data = await DataLoader.GetNewsData();
+				newsFeed.Clear();
 				newsFeed.AddRange(data);
 				newsAdapter.NotifyDataSetChanged();
 				newsAdapter.ItemClick += NewsItemClick;

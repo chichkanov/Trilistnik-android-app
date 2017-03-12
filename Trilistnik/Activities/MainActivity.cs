@@ -14,7 +14,7 @@ using Java.Lang;
 
 namespace Trilistnik
 {
-	[Activity(Label = "Трилистник", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@mipmap/icon", HardwareAccelerated = true)]
+	[Activity(Label = "Трилистник", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@mipmap/icon", HardwareAccelerated = true)]
 	public class MainActivity : AppCompatActivity
 	{
 		public static Context context;

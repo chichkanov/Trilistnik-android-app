@@ -128,6 +128,7 @@
     <Compile Include="TransportComponents\TrainInfo.cs" />
     <Compile Include="Utilities\ApiKeys.cs" />
     <Compile Include="Utilities\Prefs.cs" />
+    <Compile Include="Activities\Login.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -215,6 +216,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_local_library_black_24dp.png" />
+    <AndroidResource Include="Resources\layout\Login.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

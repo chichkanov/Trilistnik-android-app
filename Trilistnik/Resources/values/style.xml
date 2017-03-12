@@ -18,7 +18,7 @@
     <item name="android:gravity">center</item>
 	</style>
 
-	<style name="mainAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="mainAppTheme" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">#1976D2</item>
     <item name="colorPrimaryDark">#1976D2</item>
     <item name="colorAccent">#1976D2</item>

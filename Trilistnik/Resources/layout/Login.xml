@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2579BF"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/noInternetText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Привет!"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
+        <TextView
+            android:id="@+id/noInternetText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="30dp"
+            android:text="Войди через свой профиль Вконтакте, чтобы получить доступ к разделам барахолка и услуги. Вы можете войти позже через раздел настроек"
+            android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="#0D47A1"
+            android:text="Войти"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/skipLogin"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="#0D47A1"
+            android:text="Пропустить"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>
