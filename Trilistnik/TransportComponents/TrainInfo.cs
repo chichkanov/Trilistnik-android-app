@@ -10,6 +10,7 @@ namespace Trilistnik
 		public string Stops { get; set; }
 		public string Express { get; set; }
 		public string StandartPlus { get; set; }
+		public string TimeLeft { get; set; }
 
 	}
 }

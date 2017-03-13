@@ -15,6 +15,7 @@ namespace Trilistnik
 		public TextView Stops { get; set; }
 		public TextView IsExpress { get; set; }
 		public TextView IsStandartPlus { get; set; }
+		public TextView TimeLeft { get; set; }
 
 
 		public TransportViewHolder(View itemView) : base(itemView)
@@ -27,6 +28,8 @@ namespace Trilistnik
 			ll = itemView.FindViewById<LinearLayout>(Resource.Id.transportFeedContent);
 			IsExpress = itemView.FindViewById<TextView>(Resource.Id.transportExpress);
 			IsStandartPlus = itemView.FindViewById<TextView>(Resource.Id.transportStandartPlus);
+			TimeLeft = itemView.FindViewById<TextView>(Resource.Id.transportTimeLeft);
+
 		}
 	}
 }

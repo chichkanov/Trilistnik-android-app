@@ -43,13 +43,14 @@ namespace Trilistnik
 				authorizeUrl: new Uri("https://oauth.vk.com/authorize"),
 				redirectUrl: new Uri("https://oauth.vk.com/blank.html"));
 			auth.AllowCancel = true;
+			auth.IsUsingNativeUI = false;
 			auth.Completed += (sender, ee) =>
 			{
 				if (!ee.IsAuthenticated)
 				{
 					var builder = new AlertDialog.Builder(this);
-					builder.SetMessage("Not Authenticated");
-					builder.SetPositiveButton("Ok", (o, e) => { });
+					builder.SetMessage("Ошибка!");
+					builder.SetPositiveButton("Ок", (o, e) => { });
 					builder.Create().Show();
 					return;
 				}
@@ -59,8 +60,20 @@ namespace Trilistnik
 					userId = ee.Account.Properties["user_id"].ToString();
 				}
 			};
+			System.Object ui_intent_as_object = auth.GetUI(this);
+			if (auth.IsUsingNativeUI == true)
+			{
+				global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
+				cti = (global::Android.Support.CustomTabs.CustomTabsIntent)ui_intent_as_object;
+
+			}
+			else
+			{
+				global::Android.Content.Intent i = null;
+				i = (global::Android.Content.Intent)ui_intent_as_object;
+				StartActivity(i);
+			}
 			var intent = auth.GetUI(this);
-			//StartActivity(intent);
 		}
 	}
 }
