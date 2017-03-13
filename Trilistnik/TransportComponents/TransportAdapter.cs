@@ -28,13 +28,17 @@ namespace Trilistnik
 			string departureText = transportFeed[position].Departure.Split(' ')[1].Substring(0, 5);
 			string duration = (int.Parse(transportFeed[position].Duration) / 60).ToString() + " мин";
 
-			DateTime currentTrainDate = DateTime.Parse(departureText);
+			DateTime currentTrainDate = DateTime.Parse(transportFeed[position].Departure);
 			TimeSpan span = currentTrainDate.Subtract(DateTime.Now);
 
 			if (currentTrainDate > DateTime.Now)
 			{
-				string timeLeftText = span.Hours > 0 ? ("Через " + span.Hours.ToString() + " ч " + span.Minutes.ToString() + " мин") :
-									  ("Через " + span.Minutes.ToString() + " мин");
+				string minutesLeft = span.Minutes.ToString() + " мин";
+				string hoursLeft = span.Hours > 0 ? span.Hours.ToString() + " ч "  : String.Empty;
+				string daysLeft = span.Days > 0 ? span.Days.ToString() + " д " : String.Empty;
+
+				string timeLeftText = "Через " + daysLeft + hoursLeft + minutesLeft;
+				transportViewHolder.TimeLeft.Visibility = ViewStates.Visible;
 				transportViewHolder.TimeLeft.Text = timeLeftText;
 			}
 			else
