@@ -21,7 +21,7 @@ namespace Trilistnik
 
 		public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
 		{
-			
+
 			var transportViewHolder = (TransportViewHolder)holder;
 
 			string arrivalText = transportFeed[position].Arrival.Split(' ')[1].Substring(0, 5);
@@ -34,10 +34,26 @@ namespace Trilistnik
 			if (currentTrainDate > DateTime.Now)
 			{
 				string minutesLeft = span.Minutes.ToString() + " мин";
-				string hoursLeft = span.Hours > 0 ? span.Hours.ToString() + " ч "  : String.Empty;
+				string hoursLeft = span.Hours > 0 ? span.Hours.ToString() + " ч " : String.Empty;
 				string daysLeft = span.Days > 0 ? span.Days.ToString() + " д " : String.Empty;
 
 				string timeLeftText = "Через " + daysLeft + hoursLeft + minutesLeft;
+				if (span.Hours >= 1 || span.Days >= 1)
+				{
+					transportViewHolder.TimeLeft.SetBackgroundResource(Resource.Drawable.curvedTextViewOkay);
+				}
+				else
+				{
+					if (span.Minutes <= 10)
+					{
+						transportViewHolder.TimeLeft.SetBackgroundResource(Resource.Drawable.curvedTextViewLate);
+					}
+					else
+					{
+						transportViewHolder.TimeLeft.SetBackgroundResource(Resource.Drawable.curvedTextView);
+					}
+				}
+
 				transportViewHolder.TimeLeft.Visibility = ViewStates.Visible;
 				transportViewHolder.TimeLeft.Text = timeLeftText;
 			}
@@ -55,7 +71,8 @@ namespace Trilistnik
 				transportViewHolder.IsExpress.Visibility = ViewStates.Visible;
 				transportViewHolder.IsExpress.Text = "Экспресс";
 			}
-			else {
+			else
+			{
 				transportViewHolder.IsExpress.Visibility = ViewStates.Gone;
 
 			}
@@ -64,7 +81,8 @@ namespace Trilistnik
 				transportViewHolder.IsStandartPlus.Visibility = ViewStates.Visible;
 				transportViewHolder.IsStandartPlus.Text = "Стандарт плюс";
 			}
-			else {
+			else
+			{
 				transportViewHolder.IsStandartPlus.Visibility = ViewStates.Gone;
 
 			}
@@ -80,17 +98,21 @@ namespace Trilistnik
 				if (curDate < trainDate)
 				{
 					if (position % 2 == 0) transportViewHolder.ll.SetBackgroundColor(Color.Rgb(250, 250, 250));
-					else {
+					else
+					{
 						transportViewHolder.ll.SetBackgroundColor(Color.Rgb(238, 238, 238));
 					}
 				}
-				else {
+				else
+				{
 					transportViewHolder.ll.SetBackgroundColor(Color.Rgb(210, 210, 210));
 				}
 			}
-			else {
+			else
+			{
 				if (position % 2 == 0) transportViewHolder.ll.SetBackgroundColor(Color.Rgb(250, 250, 250));
-				else {
+				else
+				{
 					transportViewHolder.ll.SetBackgroundColor(Color.Rgb(238, 238, 238));
 				}
 			}

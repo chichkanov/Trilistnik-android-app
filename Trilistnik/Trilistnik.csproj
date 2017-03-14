@@ -242,6 +242,9 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\layout\Login.xml" />
+    <AndroidResource Include="Resources\drawable\curvedTextView.xml" />
+    <AndroidResource Include="Resources\drawable\curvedTextViewLate.xml" />
+    <AndroidResource Include="Resources\drawable\curvedTextViewOkay.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
