@@ -33,7 +33,7 @@ namespace Trilistnik
 
 			if (currentTrainDate > DateTime.Now)
 			{
-				string minutesLeft = span.Minutes.ToString() + " мин";
+			    string minutesLeft = (span.Minutes+1).ToString() + " мин";
 				string hoursLeft = span.Hours > 0 ? span.Hours.ToString() + " ч " : String.Empty;
 				string daysLeft = span.Days > 0 ? span.Days.ToString() + " д " : String.Empty;
 

@@ -21,5 +21,11 @@ namespace Trilistnik
 			prefsEditor.PutBoolean("firstStart", false);
 			prefsEditor.Apply();
 		}
+
+		public int GetDefaultFragment()
+		{
+			String res = prefs.GetString("defaultFragment", "1");
+			return int.Parse(res);
+		}
 	}
 }

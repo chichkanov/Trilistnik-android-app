@@ -10,4 +10,14 @@
         <item>Беговая</item>
 		<item>Белорусская</item>
     </string-array>
+
+	<string-array name="default_fragment">
+        <item>Новости</item>
+        <item>Транспорт</item>
+    </string-array>
+	
+	<string-array name="default_fragment_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

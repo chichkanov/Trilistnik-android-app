@@ -94,12 +94,20 @@ namespace Trilistnik
 			transportAdapter = new TransportAdapter(transportFeed); 
 			recyclerView.SetAdapter(transportAdapter);
 
+			PerformAutoUpdate();
+
 			if (!MainActivity.isOnline)
 			{
 				ShowNoInternetNofitication();
 			}
 
 			return root;
+		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			transportAdapter.NotifyDataSetChanged();
 		}
 
 		/// <summary>
@@ -308,6 +316,17 @@ namespace Trilistnik
 					loadingSpinner.Visibility = ViewStates.Gone;
 				}
 			};
+		}
+
+		private void PerformAutoUpdate()
+		{
+			var timer = new System.Threading.Timer((e) =>
+			{
+				using (var h = new Handler(Looper.MainLooper))
+
+					h.Post(() => { transportAdapter.NotifyDataSetChanged(); });
+
+			}, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
 		}
 
 	}

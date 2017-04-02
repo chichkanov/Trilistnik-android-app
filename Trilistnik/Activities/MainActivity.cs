@@ -21,6 +21,7 @@ namespace Trilistnik
 		public static bool isOnline;
 
 		private DrawerLayout drawerLayout;
+		private NavigationView navigationView;
 		private SettingsFragment settingsFragment;
 		private PayFragment payFragment;
 		private FixFragment fixFragment;
@@ -30,6 +31,9 @@ namespace Trilistnik
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
 		public static Prefs prefs;
+
+		public const int NEWS_FRAGMENT = 1;
+		public const int TRANSPORT_FRAGMENT = 2;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -41,7 +45,7 @@ namespace Trilistnik
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
 			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-			var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+			navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
 			isOnline = checkConnection();
 			InternetReceiver internetReceiver = new InternetReceiver();
@@ -51,22 +55,19 @@ namespace Trilistnik
 
 			context = Application.Context;
 			prefs = new Prefs(context);
-			newsFragment = new NewsFragment();
 
-			toolbar.Title = "Новости";
+			ChooseDefaultFragment();
+
 			SetSupportActionBar(toolbar);
 
-			//Enable support action bar to display hamburger
 			SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-			navigationView.SetCheckedItem(Resource.Id.nav_news);
 			SetupDrawerContent(navigationView);
 
-			var trans = SupportFragmentManager.BeginTransaction();
-			trans.Add(Resource.Id.content, newsFragment);
-			currentFragment = newsFragment;
-			trans.Commit();
+
+
+
 		}
 
 		/// <summary>
@@ -100,6 +101,7 @@ namespace Trilistnik
 				switch (e.MenuItem.ItemId)
 				{
 					case Resource.Id.nav_news:
+						if (newsFragment == null) newsFragment = new NewsFragment();
 						toolbar.Title = "Новости";
 						ShowFragment(newsFragment);
 						break;
@@ -157,6 +159,32 @@ namespace Trilistnik
 			int exitValue = ipProcess.WaitFor();
 			return exitValue == 0;
 		}
+
+		private void ChooseDefaultFragment()
+		{
+			int res = prefs.GetDefaultFragment();
+
+			switch (res)
+			{
+				case NEWS_FRAGMENT: 
+					newsFragment = new NewsFragment();
+					navigationView.SetCheckedItem(Resource.Id.nav_news);
+					currentFragment = newsFragment;
+					toolbar.Title = "Новости";
+					break;
+				case TRANSPORT_FRAGMENT:
+					transportFragment = new TransportFragment();
+					navigationView.SetCheckedItem(Resource.Id.nav_transport);
+					currentFragment = transportFragment;
+					toolbar.Title = "Транспорт";
+					break;
+			}
+
+			var trans = SupportFragmentManager.BeginTransaction();
+			trans.Add(Resource.Id.content, currentFragment);
+			trans.Commit();
+		}
+
 	}
 }
 

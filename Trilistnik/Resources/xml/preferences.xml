@@ -2,9 +2,10 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <PreferenceCategory android:title="Раздел по умолчанию">
-    <CheckBoxPreference android:key="checkbox_preference"
-                        android:title="Checkbox Preference Title"
-                        android:summary="Checkbox Preference Summary" />
-  </PreferenceCategory>
+ <ListPreference
+      android:key="defaultFragment"
+      android:title="Раздел по умолчанию"
+      android:dialogTitle="Выбор"
+      android:entries="@array/default_fragment"
+      android:entryValues="@array/default_fragment_values" />
 </PreferenceScreen>
