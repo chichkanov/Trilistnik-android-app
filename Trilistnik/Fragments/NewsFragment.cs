@@ -180,14 +180,7 @@ namespace Trilistnik
 
 		private void NewsItemClick(object sender, int position)
 		{
-			var newsPostIntent = new Intent(MainActivity.context, typeof(NewsPost));
-			newsPostIntent.PutExtra("newsText", newsFeed[position].Text);
-			ActivityOptions activityOptions = ActivityOptions.MakeSceneTransitionAnimation(
-				Activity,
-				new Pair(root.FindViewById(Resource.Id.newsText), NewsPost.VIEW_NAME_NEWS_TEXT),
-				new Pair(root.FindViewById(Resource.Id.newsImg), NewsPost.VIEW_NAME_NEWS_IMG)
-			);
-			StartActivity(newsPostIntent, activityOptions.ToBundle());
+			Console.WriteLine("Clicked");
 		}
 	}
 }

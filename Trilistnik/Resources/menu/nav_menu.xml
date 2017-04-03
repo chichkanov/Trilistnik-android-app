@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <group android:checkableBehavior="single">
+  <group android:id="@+id/nav_main_group" android:checkableBehavior="single">
     <item
       android:id="@+id/nav_news"
 	  android:icon="@drawable/ic_home_black_24dp"
@@ -21,6 +21,18 @@
       android:id="@+id/nav_info"	  
       android:icon="@drawable/ic_local_library_black_24dp"
       android:title="Об общежитии" />
+	</group>
+	<group android:id="@+id/nav_second_group" android:checkableBehavior="single">
+	<item
+      android:id="@+id/nav_swap"	  
+      android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+      android:title="Барахолка" />
+	<item
+      android:id="@+id/nav_serv"	  
+      android:icon="@drawable/ic_transfer_within_a_station_black_24dp"
+      android:title="Услуги" />
+	</group>
+	<group android:id="@+id/nav_third_group" android:checkableBehavior="single">
     <item
       android:id="@+id/nav_settings"
 	  android:icon="@drawable/ic_settings_black_24dp"

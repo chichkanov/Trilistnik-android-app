@@ -11,6 +11,17 @@ using System;
 using Android.Content;
 using Android.Widget;
 using Java.Lang;
+using System.Collections.Generic;
+using Xamarin.Auth;
+using System.Linq;
+using Citrina;
+using System.Threading.Tasks;
+using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Load.Engine;
+using Com.Bumptech.Glide.Request.Target;
+using Android.Graphics;
+using Android.Support.V4.Graphics.Drawable;
+using Android.Preferences;
 
 namespace Trilistnik
 {
@@ -30,12 +41,15 @@ namespace Trilistnik
 		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
-		public static Prefs prefs;
+		private Account account;
+
+		private static ISharedPreferences prefs;
+		private static ISharedPreferencesEditor prefsEditor;
 
 		public const int NEWS_FRAGMENT = 1;
 		public const int TRANSPORT_FRAGMENT = 2;
 
-		protected override void OnCreate(Bundle savedInstanceState)
+		protected async override void OnCreate(Bundle savedInstanceState)
 		{
 			SetTheme(Resource.Style.mainAppTheme);
 			base.OnCreate(savedInstanceState);
@@ -54,7 +68,7 @@ namespace Trilistnik
 			internetReceiver.InternetConnectionReconnect += (sender, e) => isOnline = true;
 
 			context = Application.Context;
-			prefs = new Prefs(context);
+			InitPrefs();
 
 			SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -65,6 +79,11 @@ namespace Trilistnik
 				ChooseDefaultFragment();
 				SetupDrawerContent(navigationView);
 			}
+			var header = navigationView.GetHeaderView(0);
+			var userName = (TextView)header.FindViewById(Resource.Id.tv_header_text);
+			userName.Text = await GetUserName();
+			SetUserPhoto(header);
+
 		}
 
 		/// <summary>
@@ -157,9 +176,12 @@ namespace Trilistnik
 			return exitValue == 0;
 		}
 
+		/// <summary>
+		/// Chooses the default fragment
+		/// </summary>
 		private void ChooseDefaultFragment()
 		{
-			int res = prefs.GetDefaultFragment();
+			int res = int.Parse(prefs.GetString("defaultFragment", "1"));
 
 			switch (res)
 			{
@@ -182,6 +204,77 @@ namespace Trilistnik
 			trans.Commit();
 		}
 
+		/// <summary>
+		/// Gets the name of the user
+		/// </summary>
+		/// <returns>The user name</returns>
+		private async Task<string> GetUserName()
+		{
+			if (prefs.GetBoolean("isUserNameCached", false))
+			{
+				return prefs.GetString("userName", "Аноним Анонимный");
+			}
+			account = AccountStore.Create().FindAccountsForService("vk").FirstOrDefault();
+			var client = new CitrinaClient();
+			var token = new UserAccessToken(account.Properties["access_token"], 999999, int.Parse(account.Properties["user_id"]), 5920615);
+			var call = await client.Users.Get(new Citrina.StandardApi.Models.UsersGetRequest { AccessToken = token }).ConfigureAwait(false);
+			var result = call.Response.First();
+			prefsEditor.PutString("userName", result.FirstName + " " + result.LastName);
+			prefsEditor.PutBoolean("isUserNameCached", true);
+			prefsEditor.Apply();
+			return result.FirstName + " " + result.LastName;
+		}
+
+		/// <summary>
+		/// Gets the user photo
+		/// </summary>
+		/// <returns>The user photo</returns>
+		private async Task<string> GetUserPhoto()
+		{
+			if (prefs.GetBoolean("isUserImgCached", false))
+			{
+				return prefs.GetString("userImg", "Надеюсь сюда не дойдет");
+			}
+			account = AccountStore.Create().FindAccountsForService("vk").FirstOrDefault();
+			var client = new CitrinaClient();
+			var token = new UserAccessToken(account.Properties["access_token"], 999999, int.Parse(account.Properties["user_id"]), 5920615);
+			List<string> list = new List<string>();
+			list.Add("photo_200");
+			IEnumerable<string> fields = list;
+			var call = await client.Users.Get(new Citrina.StandardApi.Models.UsersGetRequest { AccessToken = token, Fields = fields }).ConfigureAwait(false);
+			var result = call.Response.First();
+			prefsEditor.PutString("userImg", result.Photo200);
+			prefsEditor.PutBoolean("isUserImgCached", true);
+			prefsEditor.Apply();
+			return result.Photo200;
+		}
+
+		//TODO When user change avatar but in-app avatar do not change because of the UserImg flag
+		/// <summary>
+		/// Sets the user photo
+		/// </summary>
+		/// <param name="header">Header view</param>
+		private async void SetUserPhoto(View header)
+		{
+			var userImg = (ImageView)header.FindViewById(Resource.Id.tv_header_userPhoro);
+
+			var photoUrl = await GetUserPhoto();
+			Glide.With(this).Load(photoUrl)
+			     .DiskCacheStrategy(DiskCacheStrategy.All)
+				 .Override(200, 200)
+				 .Into(userImg);
+		}
+
+		/// <summary>
+		/// Inits the prefs
+		/// </summary>
+		private void InitPrefs()
+		{
+			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+			prefsEditor = prefs.Edit();
+			prefsEditor.PutBoolean("firstStart", false);
+			prefsEditor.Apply();
+		}
 	}
 }
 
