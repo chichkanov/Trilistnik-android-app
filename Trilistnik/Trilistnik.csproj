@@ -157,7 +157,6 @@
     <Compile Include="TransportComponents\TransportViewHolder.cs" />
     <Compile Include="TransportComponents\TrainInfo.cs" />
     <Compile Include="Utilities\ApiKeys.cs" />
-    <Compile Include="Utilities\Prefs.cs" />
     <Compile Include="Activities\Login.cs" />
   </ItemGroup>
   <ItemGroup>

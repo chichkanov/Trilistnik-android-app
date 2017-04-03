@@ -79,10 +79,14 @@ namespace Trilistnik
 				ChooseDefaultFragment();
 				SetupDrawerContent(navigationView);
 			}
-			var header = navigationView.GetHeaderView(0);
-			var userName = (TextView)header.FindViewById(Resource.Id.tv_header_text);
-			userName.Text = await GetUserName();
-			SetUserPhoto(header);
+
+			if (prefs.GetBoolean("isLoggedIn", false))
+			{
+				var header = navigationView.GetHeaderView(0);
+				var userName = (TextView)header.FindViewById(Resource.Id.tv_header_text);
+				userName.Text = await GetUserName();
+				SetUserPhoto(header);
+			}
 
 		}
 

@@ -44,7 +44,7 @@ namespace Trilistnik
 		{
 			var auth = new OAuth2Authenticator(
 				clientId: "5920615",
-				scope: "friends,video,groups",
+				scope: "",
 				authorizeUrl: new Uri("https://oauth.vk.com/authorize"),
 				redirectUrl: new Uri("https://oauth.vk.com/blank.html"));
 			auth.AllowCancel = true;
