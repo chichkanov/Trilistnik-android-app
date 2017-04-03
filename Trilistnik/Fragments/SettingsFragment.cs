@@ -21,11 +21,11 @@ namespace Trilistnik
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			AddPreferencesFromResource(Resource.Xml.preferences);
 		}
 
 		public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
 		{
+			AddPreferencesFromResource(Resource.Xml.preferences);
 		}
 	}
 }

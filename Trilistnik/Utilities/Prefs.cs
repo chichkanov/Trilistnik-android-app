@@ -27,5 +27,6 @@ namespace Trilistnik
 			String res = prefs.GetString("defaultFragment", "1");
 			return int.Parse(res);
 		}
+
 	}
 }

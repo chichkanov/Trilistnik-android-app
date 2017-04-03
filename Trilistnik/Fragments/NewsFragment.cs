@@ -49,7 +49,7 @@ namespace Trilistnik
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			root = (ViewGroup)inflater.Inflate(Resource.Layout.newsfragment, null);
+			root = (ViewGroup)inflater.Inflate(Resource.Layout.fragment_news, null);
 
 			noInternetLayout = root.FindViewById<LinearLayout>(Resource.Id.noInternetContent);
 

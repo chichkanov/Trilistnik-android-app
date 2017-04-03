@@ -39,15 +39,15 @@ namespace Trilistnik
 		{
 			SetTheme(Resource.Style.mainAppTheme);
 			base.OnCreate(savedInstanceState);
-			SetContentView(Resource.Layout.Main);
+			SetContentView(Resource.Layout.activity_main);
 
 
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+			SetSupportActionBar(toolbar);
 			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
 			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
-			isOnline = checkConnection();
 			InternetReceiver internetReceiver = new InternetReceiver();
 			this.RegisterReceiver(internetReceiver, new IntentFilter(ConnectivityManager.ConnectivityAction));
 			internetReceiver.InternetConnectionLost += (sender, e) => isOnline = false;
@@ -56,18 +56,15 @@ namespace Trilistnik
 			context = Application.Context;
 			prefs = new Prefs(context);
 
-			ChooseDefaultFragment();
-
-			SetSupportActionBar(toolbar);
-
 			SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-			SetupDrawerContent(navigationView);
-
-
-
-
+			if (savedInstanceState == null)
+			{
+				isOnline = checkConnection();
+				ChooseDefaultFragment();
+				SetupDrawerContent(navigationView);
+			}
 		}
 
 		/// <summary>
@@ -102,27 +99,27 @@ namespace Trilistnik
 				{
 					case Resource.Id.nav_news:
 						if (newsFragment == null) newsFragment = new NewsFragment();
-						toolbar.Title = "Новости";
+						Title = "Новости";
 						ShowFragment(newsFragment);
 						break;
 					case Resource.Id.nav_transport:
 						if (transportFragment == null) transportFragment = new TransportFragment();
-						toolbar.Title = "Транспорт";
+						Title = "Транспорт";
 						ShowFragment(transportFragment);
 						break;
 					case Resource.Id.nav_pay:
 						if (payFragment == null) payFragment = new PayFragment();
-						toolbar.Title = "Оплата";
+						Title = "Оплата";
 						ShowFragment(payFragment);
 						break;
 					case Resource.Id.nav_fix:
 						if (fixFragment == null) fixFragment = new FixFragment();
-						toolbar.Title = "Заявка на ремонт";
+						Title = "Заявка на ремонт";
 						ShowFragment(fixFragment);
 						break;
 					case Resource.Id.nav_settings:
 						if (settingsFragment == null) settingsFragment = new SettingsFragment();
-						toolbar.Title = "Настройки";
+						Title = "Настройки";
 						ShowFragment(settingsFragment);
 						break;
 				}
@@ -166,17 +163,17 @@ namespace Trilistnik
 
 			switch (res)
 			{
-				case NEWS_FRAGMENT: 
+				case NEWS_FRAGMENT:
 					newsFragment = new NewsFragment();
 					navigationView.SetCheckedItem(Resource.Id.nav_news);
 					currentFragment = newsFragment;
-					toolbar.Title = "Новости";
+					Title = "Новости";
 					break;
 				case TRANSPORT_FRAGMENT:
 					transportFragment = new TransportFragment();
 					navigationView.SetCheckedItem(Resource.Id.nav_transport);
 					currentFragment = transportFragment;
-					toolbar.Title = "Транспорт";
+					Title = "Транспорт";
 					break;
 			}
 

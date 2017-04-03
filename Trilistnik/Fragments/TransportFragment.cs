@@ -51,7 +51,7 @@ namespace Trilistnik
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			root = (ViewGroup)inflater.Inflate(Resource.Layout.transportfragment, null);
+			root = (ViewGroup)inflater.Inflate(Resource.Layout.fragment_transport, null);
 
 			noInternetLayout = root.FindViewById<LinearLayout>(Resource.Id.noInternetContentTransport);
 			todayButton = root.FindViewById<Button>(Resource.Id.buttonTrainToday);

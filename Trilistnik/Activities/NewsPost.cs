@@ -25,7 +25,7 @@ namespace Trilistnik
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			SetContentView(Resource.Layout.NewsPost);
+			SetContentView(Resource.Layout.activity_news_post);
 
 			postText = FindViewById<TextView>(Resource.Id.newsPostText);
 			postText.TransitionName = VIEW_NAME_NEWS_TEXT;

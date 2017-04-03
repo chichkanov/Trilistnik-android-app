@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Trilistnik</RootNamespace>
     <AssemblyName>Trilistnik</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -138,7 +138,6 @@
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\NewsPost.cs" />
-    <Compile Include="Interfaces\IDataLoader.cs" />
     <Compile Include="NewsComponents\NewsAdapter.cs" />
     <Compile Include="NewsComponents\NewsCache.cs" />
     <Compile Include="NewsComponents\NewsViewHolder.cs" />
@@ -162,7 +161,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.xml" />
+    <AndroidResource Include="Resources\layout\activity_main.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
@@ -185,10 +184,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo_text.png" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo_droid.png" />
-    <AndroidResource Include="Resources\layout\payfragment.xml" />
-    <AndroidResource Include="Resources\layout\settingsfragment.xml" />
-    <AndroidResource Include="Resources\layout\newsfragment.xml" />
-    <AndroidResource Include="Resources\layout\fixfragment.xml" />
+    <AndroidResource Include="Resources\layout\fragment_pay.xml" />
+    <AndroidResource Include="Resources\layout\fragment_news.xml" />
+    <AndroidResource Include="Resources\layout\fragment_fix.xml" />
     <AndroidResource Include="Resources\layout\fragmentNoInternet.xml" />
     <AndroidResource Include="Resources\drawable\cat_slippers.png" />
     <AndroidResource Include="Resources\layout\news_item.xml" />
@@ -199,7 +197,7 @@
     <AndroidResource Include="Resources\drawable\gradient_top.xml" />
     <AndroidResource Include="Resources\drawable\gradient_bottom.xml" />
     <AndroidResource Include="Resources\drawable\background_shadow.xml" />
-    <AndroidResource Include="Resources\layout\NewsPost.xml" />
+    <AndroidResource Include="Resources\layout\activity_news_post.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_home_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_home_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home_black_24dp.png" />
@@ -225,7 +223,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_payment_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_train_black_24dp.png" />
-    <AndroidResource Include="Resources\layout\transportfragment.xml" />
+    <AndroidResource Include="Resources\layout\fragment_transport.xml" />
     <AndroidResource Include="Resources\layout\transport_item.xml" />
     <AndroidResource Include="Resources\drawable\listborder.xml" />
     <AndroidResource Include="Resources\layout\spinner.xml" />
@@ -241,7 +239,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_local_library_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_local_library_black_24dp.png" />
-    <AndroidResource Include="Resources\layout\Login.xml" />
+    <AndroidResource Include="Resources\layout\activity_login.xml" />
     <AndroidResource Include="Resources\drawable\curvedTextView.xml" />
     <AndroidResource Include="Resources\drawable\curvedTextViewLate.xml" />
     <AndroidResource Include="Resources\drawable\curvedTextViewOkay.xml" />
@@ -257,7 +255,6 @@
     <Folder Include="Fragments\" />
     <Folder Include="Resources\anim\" />
     <Folder Include="Activities\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="NewsComponents\" />
     <Folder Include="Utilities\" />
     <Folder Include="TransportComponents\" />

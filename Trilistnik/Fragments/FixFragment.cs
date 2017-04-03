@@ -27,7 +27,7 @@ namespace Trilistnik
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.fixfragment, null);
+			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.fragment_fix, null);
 
 			webView = root.FindViewById<WebView>(Resource.Id.webViewFix);
 			loadingSpinner = root.FindViewById(Resource.Id.loading_spinner);

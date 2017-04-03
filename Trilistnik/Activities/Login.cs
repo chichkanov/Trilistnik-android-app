@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Xamarin.Auth;
+using Android.Preferences;
 
 namespace Trilistnik
 {
@@ -18,20 +19,24 @@ namespace Trilistnik
 
 		protected override void OnCreate(Bundle bundle)
 		{
-			SetTheme(Resource.Style.mainAppTheme);
+
+			if (PreferenceManager.GetDefaultSharedPreferences(this).GetBoolean("isLoggedIn", false))
+			{
+				StartNextScreen();
+			}
+
 			base.OnCreate(bundle);
-			SetContentView(Resource.Layout.Login);
+			SetTheme(Resource.Style.mainAppTheme);
+			SetContentView(Resource.Layout.activity_login);
 
 			Button login = FindViewById<Button>(Resource.Id.login);
 			Button skipLogin = FindViewById<Button>(Resource.Id.skipLogin);
-			Intent intent = new Intent(this, typeof(MainActivity));
 
 			login.Click += delegate { LoginToVk(); };
 
 			skipLogin.Click += (object sender, EventArgs e) =>
 			{
-				Finish();
-				StartActivity(intent);
+				StartNextScreen();
 			};
 		}
 
@@ -58,6 +63,11 @@ namespace Trilistnik
 				{
 					token = ee.Account.Properties["access_token"].ToString();
 					userId = ee.Account.Properties["user_id"].ToString();
+					AccountStore.Create(this).Save(ee.Account, "vk");
+					ISharedPreferencesEditor edit = PreferenceManager.GetDefaultSharedPreferences(this).Edit();
+					edit.PutBoolean("isLoggedIn", true);
+					edit.Apply();
+					StartNextScreen();
 				}
 			};
 			System.Object ui_intent_as_object = auth.GetUI(this);
@@ -74,6 +84,14 @@ namespace Trilistnik
 				StartActivity(i);
 			}
 			var intent = auth.GetUI(this);
+		}
+
+		private void StartNextScreen()
+		{
+			Intent intent = new Intent(this, typeof(MainActivity));
+			StartActivity(intent);
+			Finish();
+
 		}
 	}
 }
