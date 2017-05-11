@@ -21,6 +21,9 @@ namespace Trilistnik
 {
 	public class TransportFragment : Android.Support.V4.App.Fragment
 	{
+		private static String ARG_TITLE = "Транспорт";
+		private String title;
+
 		private RecyclerView recyclerView;
 		private TransportAdapter transportAdapter;
 		private List<TrainInfo> transportFeed = new List<TrainInfo>();
@@ -35,18 +38,30 @@ namespace Trilistnik
 		private LinearLayoutManager layoutManager;
 		private ProgressBar loadingSpinner;
 
+		public static TransportFragment NewInstance(String param1)
+		{
+			TransportFragment fragment = new TransportFragment();
+			Bundle args = new Bundle();
+			args.PutString(ARG_TITLE, param1);
+			fragment.Arguments = args;
+			return fragment;
+		}
+
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+			if (Arguments != null)
+			{
+				title = Arguments.GetString(ARG_TITLE);
+			}
 		}
 
 		public override async void OnActivityCreated(Bundle savedInstanceState)
 		{
 			base.OnActivityCreated(savedInstanceState);
-			if (MainActivity.isOnline)
-			{
-				await GetStartTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
-			}
+			Activity.Title = title;
+			await GetStartTransportFeed(currentFromStation, currentToStation, DateTime.Now.ToString("yyyy-MM-dd"));
+
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

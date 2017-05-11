@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -75,7 +74,6 @@ namespace Trilistnik
 			{
 				global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
 				cti = (global::Android.Support.CustomTabs.CustomTabsIntent)ui_intent_as_object;
-
 			}
 			else
 			{

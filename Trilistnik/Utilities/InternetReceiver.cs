@@ -13,7 +13,7 @@ namespace Trilistnik
 
 		public override void OnReceive(Context context, Intent intent)
 		{
-			if (!MainActivity.checkConnection())
+			if (!MainActivity.isOnline)
 			{
 				if (InternetConnectionLost != null)
 				{

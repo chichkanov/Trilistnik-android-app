@@ -16,13 +16,34 @@ namespace Trilistnik
 {
 	public class FixFragment : Android.Support.V4.App.Fragment
 	{
+		private static String ARG_TITLE = "Заявка на ремонт";
+		private String title;
 
 		private WebView webView;
 		private View loadingSpinner;
 
+		public static FixFragment NewInstance(String param1)
+		{
+			FixFragment fragment = new FixFragment();
+			Bundle args = new Bundle();
+			args.PutString(ARG_TITLE, param1);
+			fragment.Arguments = args;
+			return fragment;
+		}
+
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+			if (Arguments != null)
+			{
+				title = Arguments.GetString(ARG_TITLE);
+			}
+		}
+
+		public override void OnActivityCreated(Bundle savedInstanceState)
+		{
+			base.OnActivityCreated(savedInstanceState);
+			Activity.Title = title;
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

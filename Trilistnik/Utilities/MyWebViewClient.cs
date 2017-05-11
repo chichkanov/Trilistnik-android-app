@@ -32,8 +32,8 @@ namespace Trilistnik
 
 		public override void OnReceivedSslError(WebView view, SslErrorHandler handler, Android.Net.Http.SslError error)
 		{
-			Toast.MakeText(view.Context, "Упс...", ToastLength.Long).Show();
 			base.OnReceivedSslError(view, handler, error);
+			Toast.MakeText(view.Context, "Упс...", ToastLength.Long).Show();
 		}
 
 	}

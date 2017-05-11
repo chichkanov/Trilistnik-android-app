@@ -33,11 +33,6 @@ namespace Trilistnik
 
 		private DrawerLayout drawerLayout;
 		private NavigationView navigationView;
-		private SettingsFragment settingsFragment;
-		private PayFragment payFragment;
-		private FixFragment fixFragment;
-		private NewsFragment newsFragment;
-		private TransportFragment transportFragment;
 		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private AppBarLayout appBarLayout;
@@ -54,7 +49,6 @@ namespace Trilistnik
 			SetTheme(Resource.Style.mainAppTheme);
 			base.OnCreate(savedInstanceState);
 			SetContentView(Resource.Layout.activity_main);
-
 
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			SetSupportActionBar(toolbar);
@@ -75,7 +69,7 @@ namespace Trilistnik
 
 			if (savedInstanceState == null)
 			{
-				isOnline = checkConnection();
+				isOnline = await checkConnection();
 				ChooseDefaultFragment();
 				SetupDrawerContent(navigationView);
 			}
@@ -108,42 +102,42 @@ namespace Trilistnik
 		}
 
 
+
 		/// <summary>
 		/// Set drawer content and add item selected listener
 		/// </summary>
-		/// <param name="navigationView">Navigation view</param>
-		private void SetupDrawerContent(NavigationView navigationView)
+		/// <param name="navView">Navigation view</param>
+		private void SetupDrawerContent(NavigationView navView)
 		{
 
-			navigationView.NavigationItemSelected += (sender, e) =>
+			navView.NavigationItemSelected += (sender, e) =>
 			{
 				e.MenuItem.SetChecked(true);
 				switch (e.MenuItem.ItemId)
 				{
 					case Resource.Id.nav_news:
-						if (newsFragment == null) newsFragment = new NewsFragment();
-						Title = "Новости";
-						ShowFragment(newsFragment);
+						NewsFragment newsFramgent = NewsFragment.NewInstance("Новости");
+						ShowFragment(newsFramgent);
 						break;
 					case Resource.Id.nav_transport:
-						if (transportFragment == null) transportFragment = new TransportFragment();
-						Title = "Транспорт";
+						TransportFragment transportFragment = TransportFragment.NewInstance("Транспорт");
 						ShowFragment(transportFragment);
 						break;
 					case Resource.Id.nav_pay:
-						if (payFragment == null) payFragment = new PayFragment();
-						Title = "Оплата";
+						PayFragment payFragment = PayFragment.NewInstance("Оплата");
 						ShowFragment(payFragment);
 						break;
 					case Resource.Id.nav_fix:
-						if (fixFragment == null) fixFragment = new FixFragment();
-						Title = "Заявка на ремонт";
+						FixFragment fixFragment = FixFragment.NewInstance("Заявка на ремонт");
 						ShowFragment(fixFragment);
 						break;
 					case Resource.Id.nav_settings:
-						if (settingsFragment == null) settingsFragment = new SettingsFragment();
-						Title = "Настройки";
+						SettingsFragment settingsFragment = SettingsFragment.NewInstance("Настройки");
 						ShowFragment(settingsFragment);
+						break;
+					case Resource.Id.nav_useful:
+						UsefulFragment usefulFragment = UsefulFragment.NewInstance("Полезное");
+						ShowFragment(usefulFragment);
 						break;
 				}
 				drawerLayout.CloseDrawers();
@@ -156,13 +150,10 @@ namespace Trilistnik
 		/// <param name="fragment">Fragment</param>
 		private void ShowFragment(Fragment fragment)
 		{
-			if (fragment.IsVisible) return;
 			var trans = SupportFragmentManager.BeginTransaction();
+			Console.WriteLine();
 			trans.SetCustomAnimations(Resource.Animation.enter, Resource.Animation.exit);
-			trans.Hide(currentFragment);
-			if (fragment.IsAdded) trans.Show(fragment);
-			else trans.Add(Resource.Id.content, fragment);
-			currentFragment = fragment;
+			trans.Replace(Resource.Id.content, fragment);
 			appBarLayout.SetExpanded(true);
 			trans.Commit();
 		}
@@ -171,12 +162,11 @@ namespace Trilistnik
 		/// CCheck internet connection
 		/// </summary>
 		/// <returns><c>true</c>If online<c>false</c>If offline</returns>
-		/// <param name="context">Contex.</param>
-		public static bool checkConnection()
+		public static async Task<bool> checkConnection()
 		{
 			Runtime runtime = Runtime.GetRuntime();
 			Java.Lang.Process ipProcess = runtime.Exec("/system/bin/ping -c 1 8.8.8.8");
-			int exitValue = ipProcess.WaitFor();
+			int exitValue = await ipProcess.WaitForAsync();
 			return exitValue == 0;
 		}
 
@@ -190,22 +180,16 @@ namespace Trilistnik
 			switch (res)
 			{
 				case NEWS_FRAGMENT:
-					newsFragment = new NewsFragment();
+					NewsFragment newsFramgent = NewsFragment.NewInstance("Новости");
+					ShowFragment(newsFramgent);
 					navigationView.SetCheckedItem(Resource.Id.nav_news);
-					currentFragment = newsFragment;
-					Title = "Новости";
 					break;
 				case TRANSPORT_FRAGMENT:
-					transportFragment = new TransportFragment();
+					TransportFragment transportFragment = TransportFragment.NewInstance("Транспорт");
+					ShowFragment(transportFragment);
 					navigationView.SetCheckedItem(Resource.Id.nav_transport);
-					currentFragment = transportFragment;
-					Title = "Транспорт";
 					break;
 			}
-
-			var trans = SupportFragmentManager.BeginTransaction();
-			trans.Add(Resource.Id.content, currentFragment);
-			trans.Commit();
 		}
 
 		/// <summary>

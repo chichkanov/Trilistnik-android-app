@@ -22,6 +22,9 @@ namespace Trilistnik
 {
 	public class NewsFragment : Android.Support.V4.App.Fragment
 	{
+		private static String ARG_TITLE = "Новости";
+		private String title;
+
 		private int newsOffset = 20;
 		private RecyclerView recyclerView;
 		private NewsAdapter newsAdapter;
@@ -31,20 +34,34 @@ namespace Trilistnik
 		private Button noInternetButton;
 		private ViewGroup root;
 
+		public static NewsFragment NewInstance(String param1)
+		{
+			NewsFragment fragment = new NewsFragment();
+			Bundle args = new Bundle();
+			args.PutString(ARG_TITLE, param1);
+			fragment.Arguments = args;
+			return fragment;
+		}
+
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+			if (Arguments != null)
+			{
+				title = Arguments.GetString(ARG_TITLE);
+			}
 		}
 
 		public override async void OnActivityCreated(Bundle savedInstanceState)
 		{
 			base.OnActivityCreated(savedInstanceState);
-
+			Activity.Title = title;
 			if (MainActivity.isOnline)
 			{
 				refresher.Refreshing = true;
 				await GetStartNewsFeed();
 			}
+
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
