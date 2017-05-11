@@ -45,9 +45,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="Glide">
       <HintPath>..\packages\Glide.Xamarin.3.7.0\lib\Glide.dll</HintPath>
@@ -147,6 +144,34 @@
     <Reference Include="Xamarin.GooglePlayServices.Plus">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Plus.42.1001.0\lib\MonoAndroid70\Xamarin.GooglePlayServices.Plus.dll</HintPath>
     </Reference>
+    <Reference Include="Refractored.FloatingActionButton">
+      <HintPath>..\packages\Refractored.FloatingActionButton.1.4.0\lib\MonoAndroid10\Refractored.FloatingActionButton.dll</HintPath>
+    </Reference>
+    <Reference Include="crypto">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Xamarin">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\Firebase.Xamarin.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -171,6 +196,13 @@
     <Compile Include="Utilities\ApiKeys.cs" />
     <Compile Include="Activities\Login.cs" />
     <Compile Include="Fragments\UsefulFragment.cs" />
+    <Compile Include="Fragments\ServicesFragment.cs" />
+    <Compile Include="Fragments\GoodsFragment.cs" />
+    <Compile Include="GoodsComponents\GoodsAdapter.cs" />
+    <Compile Include="GoodsComponents\GoodsViewHolder.cs" />
+    <Compile Include="GoodsComponents\GoodsItem.cs" />
+    <Compile Include="Fragments\AddGoodDialogFragment.cs" />
+    <Compile Include="Fragments\AddServiceDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -271,6 +303,13 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_add_shopping_cart_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_add_shopping_cart_black_24dp.png" />
     <AndroidResource Include="Resources\layout\fragment_useful.xml" />
+    <AndroidResource Include="Resources\layout\fragment_services.xml" />
+    <AndroidResource Include="Resources\layout\fragment_goods.xml" />
+    <AndroidResource Include="Resources\drawable\ic_add.xml" />
+    <AndroidResource Include="Resources\layout\item_goods.xml" />
+    <AndroidResource Include="Resources\layout\fragment_dialog_add_good.xml" />
+    <AndroidResource Include="Resources\drawable\round_button_bg.xml" />
+    <AndroidResource Include="Resources\drawable\ic_done_black.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -287,6 +326,7 @@
     <Folder Include="Utilities\" />
     <Folder Include="TransportComponents\" />
     <Folder Include="Resources\xml\" />
+    <Folder Include="GoodsComponents\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />

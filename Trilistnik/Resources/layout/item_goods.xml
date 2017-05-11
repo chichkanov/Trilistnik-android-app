@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <refractored.controls.CircleImageView
+        android:id="@+id/iv_goods_photo"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+    <TextView
+        android:id="@+id/tv_goods_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/iv_goods_photo"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:text="Тут заголовок" />
+    <TextView
+        android:id="@+id/tv_goods_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_title"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_goods_photo"
+        android:ellipsize="end"
+        android:textColor="#000000"
+        android:maxLines="5"
+        android:textSize="14sp"
+        tools:text="Тут последнее сообщение" />
+    <TextView
+        android:id="@+id/tv_goods_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_desc"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_goods_photo"
+        android:textSize="12sp"
+        tools:text="Date" />
+</RelativeLayout>

@@ -17,8 +17,7 @@ namespace Trilistnik
 		private const string kuncCode = "181704";
 		private const string filiCode = "181600";
 		private const string testovCode = "198226";
-		// Line by line different stations
-		// TODO add different stations
+
 		private readonly static HashSet<string> standartPlusNumbers = new HashSet<string> {"6202", "6002/6001", "6402", "6210", "6324", "6304",
 		"6218", "6224", "6404", "6610", "6612", "6330", "6030/6029", "6246", "6622", "6624", "6314", "6510", "6334", "6266", "6512"
 		};

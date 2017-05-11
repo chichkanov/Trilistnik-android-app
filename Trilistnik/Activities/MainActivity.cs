@@ -35,11 +35,10 @@ namespace Trilistnik
 		private NavigationView navigationView;
 		private Fragment currentFragment;
 		private Toolbar toolbar;
-		private AppBarLayout appBarLayout;
 		private Account account;
 
-		private static ISharedPreferences prefs;
-		private static ISharedPreferencesEditor prefsEditor;
+		public static ISharedPreferences prefs;
+		public static ISharedPreferencesEditor prefsEditor;
 
 		public const int NEWS_FRAGMENT = 1;
 		public const int TRANSPORT_FRAGMENT = 2;
@@ -52,7 +51,6 @@ namespace Trilistnik
 
 			toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 			SetSupportActionBar(toolbar);
-			appBarLayout = FindViewById<AppBarLayout>(Resource.Id.appBarLayout);
 			drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
@@ -139,6 +137,14 @@ namespace Trilistnik
 						UsefulFragment usefulFragment = UsefulFragment.NewInstance("Полезное");
 						ShowFragment(usefulFragment);
 						break;
+					case Resource.Id.nav_goods:
+						GoodsFragment goodsFragment = GoodsFragment.NewInstance("Барахолка");
+						ShowFragment(goodsFragment);
+						break;
+					case Resource.Id.nav_serv:
+						ServicesFragment serviceFragment = ServicesFragment.NewInstance("Услуги");
+						ShowFragment(serviceFragment);
+						break;
 				}
 				drawerLayout.CloseDrawers();
 			};
@@ -154,7 +160,6 @@ namespace Trilistnik
 			Console.WriteLine();
 			trans.SetCustomAnimations(Resource.Animation.enter, Resource.Animation.exit);
 			trans.Replace(Resource.Id.content, fragment);
-			appBarLayout.SetExpanded(true);
 			trans.Commit();
 		}
 

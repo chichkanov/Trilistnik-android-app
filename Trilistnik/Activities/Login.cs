@@ -65,6 +65,7 @@ namespace Trilistnik
 					AccountStore.Create(this).Save(ee.Account, "vk");
 					ISharedPreferencesEditor edit = PreferenceManager.GetDefaultSharedPreferences(this).Edit();
 					edit.PutBoolean("isLoggedIn", true);
+					edit.PutString("userId", ee.Account.Properties["user_id"]);
 					edit.Apply();
 					StartNextScreen();
 				}
