@@ -11,6 +11,7 @@ namespace Trilistnik
 	public class GoodsAdapter : RecyclerView.Adapter
 	{
 		private readonly List<GoodsItem> dataset;
+		public event EventHandler<int> ItemClick;
 
 		public GoodsAdapter(List<GoodsItem> list)
 		{
@@ -25,14 +26,21 @@ namespace Trilistnik
 			viewHolder.Date.Text = dataset[position].Date;
 			Glide.With(viewHolder.Img.Context).Load(dataset[position].Img)
 				 .DiskCacheStrategy(DiskCacheStrategy.All)
-				 .Override(100, 100)
 			     .Into(viewHolder.Img);
 		}
 
 		public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
 		{
 			var layout = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_goods, parent, false);
-			return new GoodsViewHolder(layout);
+			return new GoodsViewHolder(layout, OnClick);
+		}
+
+		private void OnClick(int position)
+		{
+			if (ItemClick != null)
+			{
+				ItemClick(this, position);
+			}
 		}
 
 		public override int ItemCount

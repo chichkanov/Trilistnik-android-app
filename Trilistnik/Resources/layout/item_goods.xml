@@ -11,6 +11,15 @@
         android:id="@+id/iv_goods_photo"
         android:layout_width="60dp"
         android:layout_height="60dp" />
+    <ImageButton
+        android:id="@+id/ib_goods_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/send_message_bg"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:src="@drawable/ic_send_message" />
     <TextView
         android:id="@+id/tv_goods_title"
         android:layout_width="match_parent"
@@ -18,6 +27,7 @@
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
         android:layout_toRightOf="@id/iv_goods_photo"
+        android:layout_toLeftOf="@id/ib_goods_write"
         android:textColor="#000000"
         android:textSize="18sp"
         tools:text="Тут заголовок" />
@@ -28,6 +38,7 @@
         android:layout_below="@id/tv_goods_title"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/iv_goods_photo"
+        android:layout_toLeftOf="@id/ib_goods_write"
         android:ellipsize="end"
         android:textColor="#000000"
         android:maxLines="5"

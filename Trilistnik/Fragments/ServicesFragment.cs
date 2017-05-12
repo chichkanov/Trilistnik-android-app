@@ -83,6 +83,12 @@ namespace Trilistnik
 		private void InitRecyclerView()
 		{
 			adapter = new GoodsAdapter(dataset);
+			adapter.ItemClick += (sender, e) =>
+			{
+				var uri = Android.Net.Uri.Parse("http://www.vk.com/write" + int.Parse(dataset[e].Id));
+				var intent = new Intent(Intent.ActionView, uri);
+				StartActivity(intent);
+			};
 			var layoutManager = new LinearLayoutManager(Activity);
 			recyclerView.SetLayoutManager(layoutManager);
 			recyclerView.SetAdapter(adapter);

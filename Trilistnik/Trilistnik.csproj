@@ -310,6 +310,8 @@
     <AndroidResource Include="Resources\layout\fragment_dialog_add_good.xml" />
     <AndroidResource Include="Resources\drawable\round_button_bg.xml" />
     <AndroidResource Include="Resources\drawable\ic_done_black.xml" />
+    <AndroidResource Include="Resources\drawable\ic_send_message.xml" />
+    <AndroidResource Include="Resources\drawable\send_message_bg.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

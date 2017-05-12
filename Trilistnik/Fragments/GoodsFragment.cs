@@ -60,9 +60,10 @@ namespace Trilistnik
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			root = (ViewGroup)inflater.Inflate(Resource.Layout.fragment_goods, null);
+			loadingSpinner = root.FindViewById<ProgressBar>(Resource.Id.loading_goods);
+
 			var fab = root.FindViewById<FloatingActionButton>(Resource.Id.fab_add_good);
 			if (!MainActivity.prefs.GetBoolean("isLoggedIn", false)) fab.SetVisibility(ViewStates.Gone);
-			loadingSpinner = root.FindViewById<ProgressBar>(Resource.Id.loading_goods);
 			fab.Click += (sender, e) =>
 			{
 				AddGoodDialogFragment dialogFragment = new AddGoodDialogFragment();
@@ -73,6 +74,7 @@ namespace Trilistnik
 				};
 				dialogFragment.Show(Activity.FragmentManager, AddGoodDialogFragment.TAG);
 			};
+
 			recyclerView = root.FindViewById<RecyclerView>(Resource.Id.rv_goods);
 			InitRecyclerView();
 
@@ -82,6 +84,12 @@ namespace Trilistnik
 		private void InitRecyclerView()
 		{
 			adapter = new GoodsAdapter(dataset);
+			adapter.ItemClick += (sender, e) =>
+			{
+				var uri = Android.Net.Uri.Parse("http://www.vk.com/write" + int.Parse(dataset[e].Id));
+				var intent = new Intent(Intent.ActionView, uri);
+				StartActivity(intent);
+			};
 			var layoutManager = new LinearLayoutManager(Activity);
 			recyclerView.SetLayoutManager(layoutManager);
 			recyclerView.SetAdapter(adapter);
