@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_goods_desc"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
         android:layout_toRightOf="@+id/iv_goods_photo"
         android:textSize="12sp"
         tools:text="Date" />

@@ -32,6 +32,10 @@
       android:icon="@drawable/ic_transfer_within_a_station_black_24dp"
       android:title="Услуги" />
 	<item
+      android:id="@+id/nav_meetups"	  
+      android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+      android:title="Мероприятия" />
+	<item
       android:id="@+id/nav_my_posts"	  
       android:icon="@drawable/ic_perm_identity_black_24dp"
       android:title="Мои публикации" />	

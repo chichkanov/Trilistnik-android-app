@@ -32,7 +32,7 @@ namespace Trilistnik
 												 MainActivity.prefs.GetString("userImg", null), MainActivity.prefs.GetString("userId", null));
 					onItemAdded(goodsItem);
 					var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
-					var item = await firebase
+					await firebase
   						.Child("Goods")
 						.PostAsync(goodsItem);
 				}

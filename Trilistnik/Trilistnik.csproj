@@ -206,6 +206,8 @@
     <Compile Include="Fragments\MyPostsFragment.cs" />
     <Compile Include="MyPostsComponents\MyPostsViewHolder.cs" />
     <Compile Include="MyPostsComponents\MyPostsAdapter.cs" />
+    <Compile Include="Fragments\MeetupsFragment.cs" />
+    <Compile Include="Fragments\AddMeetupDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -306,7 +308,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_add_shopping_cart_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_add_shopping_cart_black_24dp.png" />
     <AndroidResource Include="Resources\layout\fragment_useful.xml" />
-    <AndroidResource Include="Resources\layout\fragment_services.xml" />
     <AndroidResource Include="Resources\layout\fragment_goods.xml" />
     <AndroidResource Include="Resources\drawable\ic_add.xml" />
     <AndroidResource Include="Resources\layout\item_goods.xml" />
@@ -323,6 +324,11 @@
     <AndroidResource Include="Resources\layout\fragment_my_posts.xml" />
     <AndroidResource Include="Resources\layout\item_my_posts.xml" />
     <AndroidResource Include="Resources\drawable\ic_delete.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sentiment_very_satisfied_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sentiment_very_satisfied_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sentiment_very_satisfied_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sentiment_very_satisfied_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_sentiment_very_satisfied_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

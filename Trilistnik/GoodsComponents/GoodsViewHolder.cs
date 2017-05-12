@@ -21,7 +21,6 @@ namespace Trilistnik
 			Date = itemView.FindViewById<TextView>(Resource.Id.tv_goods_date);
 			Img = itemView.FindViewById<ImageView>(Resource.Id.iv_goods_photo);
 			SendMsg = itemView.FindViewById<ImageButton>(Resource.Id.ib_goods_write);
-
 			SendMsg.Click += (sender, e) => sendListener(base.Position);
 		}
 	}

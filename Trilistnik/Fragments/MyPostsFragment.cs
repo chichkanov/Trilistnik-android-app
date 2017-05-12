@@ -108,6 +108,15 @@ namespace Trilistnik
 					if (item.Object.Id.Equals(MainActivity.prefs.GetString("userId", "")))dataset.Add(item.Object);
 				}
 
+				var items3 = await firebase
+				  .Child("Meetups")
+				  .OnceAsync<GoodsItem>();
+
+				foreach (var item in items3)
+				{
+					if (item.Object.Id.Equals(MainActivity.prefs.GetString("userId", ""))) dataset.Add(item.Object);
+				}
+
 				adapter.NotifyDataSetChanged();
 			}
 			catch (Exception e)
@@ -135,6 +144,10 @@ namespace Trilistnik
 				  .Child("Services")
 				  .OnceAsync<GoodsItem>();
 
+			var items3 = await firebase
+				  .Child("Meetups")
+				  .OnceAsync<GoodsItem>();
+
 			String itemToDelete = "";
 
 			foreach (var item in items1)
@@ -151,6 +164,14 @@ namespace Trilistnik
 				if (goodsItem.Title.Equals(obj.Title) && goodsItem.Desc.Equals(obj.Desc)
 				   && goodsItem.Date.Equals(obj.Date) && goodsItem.Id.Equals(obj.Id))
 					itemToDelete = "Services/" + item.Key;
+			}
+
+			foreach (var item in items3)
+			{
+				var obj = item.Object;
+				if (goodsItem.Title.Equals(obj.Title) && goodsItem.Desc.Equals(obj.Desc)
+				   && goodsItem.Date.Equals(obj.Date) && goodsItem.Id.Equals(obj.Id))
+					itemToDelete = "Meetups/" + item.Key;
 			}
 
 			await firebase

@@ -5,9 +5,9 @@ using Firebase.Xamarin.Database;
 
 namespace Trilistnik
 {
-	public class AddServiceDialogFragment : DialogFragment
+	public class AddMeetupDialogFragment : DialogFragment
 	{
-		public static String TAG = "AddServiceDialogFragment";
+		public static String TAG = "AddMeetupDialogFragment";
 		public Action<GoodsItem> onItemAdded;
 
 		public override void OnCreate(Android.OS.Bundle savedInstanceState)
@@ -19,7 +19,7 @@ namespace Trilistnik
 		public override Android.Views.View OnCreateView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
 		{
 			var v = inflater.Inflate(Resource.Layout.fragment_dialog_add_good, null);
-			Dialog.SetTitle("Добавить услугу");
+			Dialog.SetTitle("Добавить мероприятие");
 			EditText title = v.FindViewById<EditText>(Resource.Id.et_good_title);
 			EditText desc = v.FindViewById<EditText>(Resource.Id.et_good_desc);
 			ImageButton button = v.FindViewById<ImageButton>(Resource.Id.ib_add_good);
@@ -33,7 +33,7 @@ namespace Trilistnik
 					onItemAdded(goodsItem);
 					var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
 					await firebase
-  						.Child("Services")
+  						.Child("Meetups")
 						.PostAsync(goodsItem);
 				}
 				else

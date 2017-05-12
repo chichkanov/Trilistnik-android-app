@@ -148,6 +148,10 @@ namespace Trilistnik
 						MyPostsFragment myPostsFragment = MyPostsFragment.NewInstance("Мои публикации");
 						ShowFragment(myPostsFragment);
 						break;
+					case Resource.Id.nav_meetups:
+						MeetupsFragment meetupsFragment = MeetupsFragment.NewInstance("Мероприятия");
+						ShowFragment(meetupsFragment);
+						break;	
 				}
 
 				Handler h = new Handler();
