@@ -8,49 +8,49 @@
     android:orientation="vertical"
     android:padding="10dp">
     <refractored.controls.CircleImageView
-        android:id="@+id/iv_goods_photo"
+        android:id="@+id/iv_my_posts_photo"
         android:layout_width="60dp"
         android:layout_height="60dp" />
     <ImageButton
-        android:id="@+id/ib_goods_write"
+        android:id="@+id/ib_my_posts_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:background="@drawable/send_message_bg"
         android:layout_alignParentRight="true"
         android:padding="8dp"
-        android:src="@drawable/ic_send_message" />
+        android:src="@drawable/ic_delete" />
     <TextView
-        android:id="@+id/tv_goods_title"
+        android:id="@+id/tv_my_posts_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
-        android:layout_toRightOf="@id/iv_goods_photo"
-        android:layout_toLeftOf="@id/ib_goods_write"
+        android:layout_toRightOf="@id/iv_my_posts_photo"
+        android:layout_toLeftOf="@id/ib_my_posts_delete"
         android:textColor="#000000"
         android:textSize="18sp"
         tools:text="Тут заголовок" />
     <TextView
-        android:id="@+id/tv_goods_desc"
+        android:id="@+id/tv_my_posts_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_goods_title"
+        android:layout_below="@id/tv_my_posts_title"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/iv_goods_photo"
-        android:layout_toLeftOf="@id/ib_goods_write"
+        android:layout_toRightOf="@+id/iv_my_posts_photo"
+        android:layout_toLeftOf="@id/ib_my_posts_delete"
         android:ellipsize="end"
         android:textColor="#000000"
         android:maxLines="6"
         android:textSize="14sp"
         tools:text="Тут последнее сообщение" />
     <TextView
-        android:id="@+id/tv_goods_date"
+        android:id="@+id/tv_my_posts_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_goods_desc"
+        android:layout_below="@id/tv_my_posts_desc"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/iv_goods_photo"
+        android:layout_toRightOf="@+id/iv_my_posts_photo"
         android:textSize="12sp"
         tools:text="Date" />
 </RelativeLayout>

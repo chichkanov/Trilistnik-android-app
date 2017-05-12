@@ -31,6 +31,10 @@
       android:id="@+id/nav_serv"	  
       android:icon="@drawable/ic_transfer_within_a_station_black_24dp"
       android:title="Услуги" />
+	<item
+      android:id="@+id/nav_my_posts"	  
+      android:icon="@drawable/ic_perm_identity_black_24dp"
+      android:title="Мои публикации" />	
 	</group>
 	<group android:id="@+id/nav_third_group" android:checkableBehavior="single">
     <item

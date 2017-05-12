@@ -144,8 +144,14 @@ namespace Trilistnik
 						ServicesFragment serviceFragment = ServicesFragment.NewInstance("Услуги");
 						ShowFragment(serviceFragment);
 						break;
+					case Resource.Id.nav_my_posts:
+						MyPostsFragment myPostsFragment = MyPostsFragment.NewInstance("Мои публикации");
+						ShowFragment(myPostsFragment);
+						break;
 				}
-				drawerLayout.CloseDrawers();
+
+				Handler h = new Handler();
+				h.PostDelayed(new Action(drawerLayout.CloseDrawers), 30);
 			};
 		}
 

@@ -203,6 +203,9 @@
     <Compile Include="GoodsComponents\GoodsItem.cs" />
     <Compile Include="Fragments\AddGoodDialogFragment.cs" />
     <Compile Include="Fragments\AddServiceDialogFragment.cs" />
+    <Compile Include="Fragments\MyPostsFragment.cs" />
+    <Compile Include="MyPostsComponents\MyPostsViewHolder.cs" />
+    <Compile Include="MyPostsComponents\MyPostsAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -312,6 +315,14 @@
     <AndroidResource Include="Resources\drawable\ic_done_black.xml" />
     <AndroidResource Include="Resources\drawable\ic_send_message.xml" />
     <AndroidResource Include="Resources\drawable\send_message_bg.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_perm_identity_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_perm_identity_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_perm_identity_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_perm_identity_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_perm_identity_black_24dp.png" />
+    <AndroidResource Include="Resources\layout\fragment_my_posts.xml" />
+    <AndroidResource Include="Resources\layout\item_my_posts.xml" />
+    <AndroidResource Include="Resources\drawable\ic_delete.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -329,6 +340,7 @@
     <Folder Include="TransportComponents\" />
     <Folder Include="Resources\xml\" />
     <Folder Include="GoodsComponents\" />
+    <Folder Include="MyPostsComponents\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />

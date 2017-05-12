@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="30dp"
-            android:text="Войди через свой профиль Вконтакте, чтобы получить полный доступ к разделам барахолка и услуги." />
+            android:text="Войди через свой профиль Вконтакте, чтобы получить полный доступ к разделам барахолка и услуги."
+            android:textColor="#FFFFFF" />
         <Button
             android:id="@+id/login"
             android:layout_width="150dp"
