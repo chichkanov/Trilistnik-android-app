@@ -33,7 +33,6 @@ namespace Trilistnik
 
 		private DrawerLayout drawerLayout;
 		private NavigationView navigationView;
-		private Fragment currentFragment;
 		private Toolbar toolbar;
 		private Account account;
 
@@ -67,7 +66,7 @@ namespace Trilistnik
 
 			if (savedInstanceState == null)
 			{
-				isOnline = await checkConnection();
+				isOnline = CheckConnection();
 				ChooseDefaultFragment();
 				SetupDrawerContent(navigationView);
 			}
@@ -167,12 +166,12 @@ namespace Trilistnik
 		/// CCheck internet connection
 		/// </summary>
 		/// <returns><c>true</c>If online<c>false</c>If offline</returns>
-		public static async Task<bool> checkConnection()
+		public bool CheckConnection()
 		{
-			Runtime runtime = Runtime.GetRuntime();
-			Java.Lang.Process ipProcess = runtime.Exec("/system/bin/ping -c 1 8.8.8.8");
-			int exitValue = await ipProcess.WaitForAsync();
-			return exitValue == 0;
+			ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+			NetworkInfo networkInfo = connectivityManager.ActiveNetworkInfo;
+			if (networkInfo != null && networkInfo.IsConnectedOrConnecting) return true;
+			else return false;
 		}
 
 		/// <summary>

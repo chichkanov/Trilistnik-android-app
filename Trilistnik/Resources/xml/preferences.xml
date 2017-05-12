@@ -8,4 +8,5 @@
       android:dialogTitle="Выбор"
       android:entries="@array/default_fragment"
       android:entryValues="@array/default_fragment_values" />
+
 </PreferenceScreen>

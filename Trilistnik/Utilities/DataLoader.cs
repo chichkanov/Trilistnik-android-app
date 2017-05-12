@@ -40,9 +40,10 @@ namespace Trilistnik
 					return ParseNewsData(json);
 				}
 			}
-			catch (System.Net.WebException)
+			catch (Exception e)
 			{
-				return null;
+				IEnumerable<Post> objectsList = new List<Post>();
+				return objectsList;
 			}
 		}
 
@@ -82,9 +83,10 @@ namespace Trilistnik
 					return ParseTransportData(json);
 				}
 			}
-			catch (System.Net.WebException)
+			catch (Exception e)
 			{
-				return null;
+				IEnumerable<TrainInfo> objectsList = new List<TrainInfo>();
+				return objectsList;
 			}
 		}
 
