@@ -12,6 +12,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
+using Android.Text;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -108,6 +109,14 @@ namespace Trilistnik
 			recyclerView.SetLayoutManager(layoutManager);
 			transportAdapter = new TransportAdapter(transportFeed); 
 			recyclerView.SetAdapter(transportAdapter);
+
+			var tvYandexCopyright = root.FindViewById<TextView>(Resource.Id.tv_yandex_copyright);
+			tvYandexCopyright.Click += (sender, e) =>
+			{
+				var uri = Android.Net.Uri.Parse("http://rasp.yandex.ru/");
+				var intent = new Intent(Intent.ActionView, uri);
+				StartActivity(intent);
+			};
 
 			PerformAutoUpdate();
 

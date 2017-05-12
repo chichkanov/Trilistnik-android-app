@@ -104,8 +104,8 @@
                 android:visibility="gone" />
         </LinearLayout>
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <ProgressBar
                 android:id="@+id/loading_spinnerTransport"
                 android:indeterminate="true"
@@ -113,10 +113,23 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/tv_yandex_copyright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="Данные предоставлены сервисом Яндекс.Расписания"
+                android:background="#2196F3"
+                android:padding="4dp"
+                android:textSize="11sp"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewTransport"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/tv_yandex_copyright"
                 android:scrollbars="vertical" />
         </RelativeLayout>
     </LinearLayout>
