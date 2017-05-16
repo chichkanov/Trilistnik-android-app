@@ -25,16 +25,24 @@ namespace Trilistnik
 			ImageButton button = v.FindViewById<ImageButton>(Resource.Id.ib_add_good);
 			button.Click += async (sender, e) =>
 			{
+				
 				if (title.Text.Trim().Length > 0 && desc.Text.Trim().Length > 0)
 				{
 					DismissAllowingStateLoss();
 					GoodsItem goodsItem = new GoodsItem(title.Text, desc.Text, DateTime.Now.ToString(),
 												 MainActivity.prefs.GetString("userImg", null), MainActivity.prefs.GetString("userId", null));
 					onItemAdded(goodsItem);
-					var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
-					await firebase
-  						.Child("Goods")
-						.PostAsync(goodsItem);
+					try
+					{
+						var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
+						await firebase
+							  .Child("Goods")
+							.PostAsync(goodsItem);
+					}
+					catch (Exception exc)
+					{
+						Console.WriteLine(exc.Message);
+					}
 				}
 				else
 				{

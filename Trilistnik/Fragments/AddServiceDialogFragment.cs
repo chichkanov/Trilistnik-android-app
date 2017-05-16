@@ -31,10 +31,17 @@ namespace Trilistnik
 					GoodsItem goodsItem = new GoodsItem(title.Text, desc.Text, DateTime.Now.ToString(),
 												 MainActivity.prefs.GetString("userImg", null), MainActivity.prefs.GetString("userId", null));
 					onItemAdded(goodsItem);
-					var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
-					await firebase
-  						.Child("Services")
-						.PostAsync(goodsItem);
+					try
+					{
+						var firebase = new FirebaseClient(ApiKeys.firebaseUrl);
+						await firebase
+							  .Child("Services")
+							.PostAsync(goodsItem);
+					}
+					catch (Exception exc)
+					{
+						Console.WriteLine(exc.Message);
+					}
 				}
 				else
 				{
